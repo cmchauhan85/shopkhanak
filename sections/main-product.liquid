@@ -79,6 +79,12 @@
           class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
+          {%- assign has_coupon_block = false -%}
+          {%- assign has_stock_block = false -%}
+          {%- for b in section.blocks -%}
+            {%- if b.type == 'coupon_badge' -%}{%- assign has_coupon_block = true -%}{%- endif -%}
+            {%- if b.type == 'stock_alert' -%}{%- assign has_stock_block = true -%}{%- endif -%}
+          {%- endfor -%}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -542,6 +548,48 @@
                   {%- endif -%}
                 </div>
               {%- when 'popup' -%}
+                {%- unless has_coupon_block -%}
+                  <div class="product__coupon-badge" style="--product-coupon-bg: #ffe4ec; --product-coupon-text: #b91c4a;">
+                    <span class="product__coupon-badge__icon" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 12V8H4V12M20 12C18.9 12 18 12.9 18 14C18 15.1 18.9 16 20 16V12M20 12V16C18.9 16 18 15.1 18 14C18 12.9 18.9 12 20 12M4 12C5.1 12 6 12.9 6 14C6 15.1 5.1 16 4 16V12M4 12V16C5.1 16 6 15.1 6 14C6 12.9 5.1 12 4 12M6 14H6.01V14.01H6V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <div class="product__coupon-badge__content">
+                      <span class="product__coupon-badge__title">First Purchase Gift</span>
+                      <span class="product__coupon-badge__desc">Use code <strong>WELCOME10</strong> for 10% off</span>
+                    </div>
+                    <button type="button" class="product__coupon-badge__copy link" data-copy-coupon="WELCOME10" data-copy-label="COPY CODE" aria-label="COPY CODE">COPY CODE</button>
+                  </div>
+                {%- endunless -%}
+                {%- unless has_stock_block -%}
+                  {%- assign _variant = product.selected_or_first_available_variant -%}
+                  {%- assign _show_stock = false -%}
+                  {%- assign _alert_title = 'Limited Stock Alert' -%}
+                  {%- assign _alert_msg = '' -%}
+                  {%- if _variant.inventory_management == 'shopify' and _variant.inventory_quantity >= 1 and _variant.inventory_quantity <= 10 -%}
+                    {%- assign _show_stock = true -%}
+                    {%- assign _qty = _variant.inventory_quantity -%}
+                    {%- assign _size_name = _variant.title | default: 'this size' -%}
+                    {%- if _qty <= 3 -%}
+                      {%- assign _alert_title = 'Almost Gone' -%}
+                      {%- assign _alert_msg = 'Only ' | append: _qty | append: ' pieces left in ' | append: _size_name -%}
+                    {%- else -%}
+                      {%- assign _alert_msg = 'Only ' | append: _qty | append: ' pieces left in ' | append: _size_name -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  <div class="product__stock-alert{% unless _show_stock %} product__stock-alert--hidden{% endunless %}" style="--product-stock-alert-bg: #ffe4ec; --product-stock-alert-text: #b91c4a;">
+                    <span class="product__stock-alert__icon" aria-hidden="true">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 23C12 23 17 18 17 12C17 8 15 5 12 3C9 5 7 8 7 12C7 18 12 23 12 23Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <div class="product__stock-alert__content">
+                      <span class="product__stock-alert__title">{{ _alert_title }}</span>
+                      <span class="product__stock-alert__message">{{ _alert_msg }}</span>
+                    </div>
+                  </div>
+                {%- endunless -%}
                 <modal-opener
                   class="product-popup-modal__opener no-js-hidden quick-add-hidden"
                   data-modal="#PopupModal-{{ block.id }}"
@@ -762,6 +810,7 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
+
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
             {{ 'products.product.view_full_details' | t }}
             {% render 'icon-arrow' %}
