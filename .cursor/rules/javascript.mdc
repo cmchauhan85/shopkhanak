@@ -1,0 +1,79 @@
+# JavaScript Rules
+
+## Namespace
+Always attach code to the `theme` namespace to avoid global scope pollution:
+```javascript
+window.theme = window.theme || {};
+
+theme.ComponentName = (() => {
+  // private
+  const init = (container) => { ... };
+  const destroy = (container) => { ... };
+
+  // public
+  return { init, destroy };
+})();
+```
+
+## Event Handling
+- Always use `addEventListener` — never inline `onclick` or `href="javascript:"`
+- Use `data-` attributes to pass values from Liquid to JS — never parse the DOM for text content
+- Clean up event listeners when a section is removed (Shopify fires `shopify:section:unload`)
+
+```javascript
+// Bridge Liquid → JS via data attributes
+// In Liquid:
+// <div data-product-id="{{ product.id }}" data-section-type="product-recommendations">
+
+// In JS:
+const container = document.querySelector('[data-section-type="product-recommendations"]');
+const productId = container?.dataset.productId;
+```
+
+## Shopify Section Events
+Always handle Shopify theme editor events for live preview support:
+```javascript
+document.addEventListener('shopify:section:load', (e) => {
+  const container = e.target;
+  if (container.dataset.sectionType === 'your-section') {
+    theme.YourSection.init(container);
+  }
+});
+
+document.addEventListener('shopify:section:unload', (e) => {
+  theme.YourSection.destroy(e.target);
+});
+```
+
+## Fetch / Ajax
+- Use the Shopify AJAX API for cart operations — never build cart URLs manually
+- Always handle errors explicitly — don't let silent failures break the cart
+
+```javascript
+// Add to cart
+const addToCart = async (variantId, quantity = 1) => {
+  try {
+    const res = await fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: variantId, quantity })
+    });
+    if (!res.ok) throw new Error('Add to cart failed');
+    return await res.json();
+  } catch (err) {
+    console.error('[theme] Cart error:', err);
+  }
+};
+```
+
+## Performance
+- Use `defer` on non-critical scripts
+- Avoid `document.write()`
+- Debounce scroll and resize handlers
+- Use `IntersectionObserver` for lazy-loading components instead of scroll events
+
+## Rules
+- No jQuery unless the base theme already uses it
+- No `var` — use `const` and `let` only
+- Prefer `querySelectorAll` + `forEach` over older DOM methods
+- Always guard against null: `const el = document.querySelector('...'); if (!el) return;`

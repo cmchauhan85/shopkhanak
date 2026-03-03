@@ -1,0 +1,80 @@
+# App Integration Rules
+
+## Golden Rule
+Treat all app-generated files as **read-only by default**. Always confirm with the user before modifying anything an app owns.
+
+---
+
+## What Apps Own — Never Touch Without Permission
+
+- Snippets that start with the app's prefix (e.g. `snippets/judgeme-*.liquid`)
+- Script/stylesheet `<link>` and `<script>` tags added to `layout/theme.liquid`
+- App block entries in section schemas: `"type": "shopify://apps/..."`
+- Metafield namespaces registered by the app
+
+---
+
+## App Blocks in Section Schema
+
+When an app uses blocks, they appear in the section schema like:
+```json
+{
+  "type": "shopify://apps/app-name/blocks/block-type",
+  "name": "App Block Name"
+}
+```
+**Never remove these.** If a section is being edited, always check the full schema for app block entries and preserve them exactly.
+
+---
+
+## Rendering App Snippets
+
+```liquid
+{% comment %} Always check the snippet exists before rendering {% endcomment %}
+{% render 'app-snippet-name', product: product %}
+```
+
+---
+
+## Metafields from Apps
+
+```liquid
+{% comment %} Always guard against blank metafields {% endcomment %}
+{% if product.metafields.app_namespace.key != blank %}
+  {{ product.metafields.app_namespace.key.value }}
+{% endif %}
+```
+
+---
+
+## Common App Patterns
+
+### Review Apps (Judge.me, Yotpo, Okendo)
+- Inject star rating snippets on PDP and collection cards
+- Render via `{% render 'judgeme_widgets', ... %}` or similar
+- Do not add custom star HTML — it conflicts with their widget
+
+### Upsell / Bundle Apps
+- Often add blocks to cart drawer and PDP sections
+- May use `theme.cart` events — check for conflicts before adding custom cart JS
+
+### Search & Filter Apps (Boost Commerce, SearchPie, Searchanise)
+- Often **replace** `templates/collection.json` or inject into collection sections
+- Do not modify collection template layout without checking if app owns the filter UI
+
+### Loyalty / Rewards Apps
+- Often add widgets to account page and cart
+- May require specific CSS class hooks — do not rename or remove them
+
+### Page Builder Apps (PageFly, GemPages)
+- Own their own templates entirely — do not edit PageFly/GemPages templates in code
+- Theme changes should go in sections/snippets used outside the builder
+
+---
+
+## Testing App Integrations
+
+1. Always test on a **dev/unpublished theme** first
+2. After editing a section with app blocks, verify app blocks still appear in the theme editor
+3. Check the browser console for app-related JS errors after changes
+4. QA the cart, PDP, and collection pages — these are most commonly affected

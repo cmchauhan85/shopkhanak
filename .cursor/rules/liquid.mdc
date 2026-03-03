@@ -1,0 +1,45 @@
+# Liquid & Shopify Core Rules
+
+## Liquid Syntax
+- Always use valid Liquid — a single syntax error breaks the entire page render
+- Use `{% render 'snippet', param: value %}` — never `{% include %}` (deprecated)
+- Use `{{ section.settings.key | default: 'fallback' }}` for all dynamic output
+- Use `{% comment %}...{% endcomment %}` for any non-obvious logic
+- Use `| escape` when outputting user-generated content
+- Use `| json` when passing Liquid values into JavaScript
+
+## Images
+- Always use `{{ image | image_url: width: 800 }} ` with `image_tag` filter
+- Add `loading="lazy"` to all below-fold images
+- Always specify `width` and `height` to prevent CLS (Cumulative Layout Shift)
+```liquid
+{{ section.settings.image | image_url: width: 1200 | image_tag:
+  loading: 'lazy',
+  width: 1200,
+  height: 600,
+  alt: section.settings.image.alt
+}}
+```
+
+## Metafields
+- Access via `resource.metafields.namespace.key`
+- Never query metafields inside `{% for %}` loops — causes N+1 performance issues
+- Always check existence: `{% if product.metafields.custom.badge != blank %}`
+
+## Pagination
+- Use `{% paginate %}` for collections — Shopify caps `limit` at 20 otherwise
+- Collections need pagination for more than 50 products
+```liquid
+{% paginate collection.products by 24 %}
+  {% for product in paginate.collection %}
+    {% render 'product-card', product: product %}
+  {% endfor %}
+  {{ paginate | default_pagination }}
+{% endpaginate %}
+```
+
+## Gotchas
+- `forloop.index` starts at 1, not 0 — use `forloop.index0` for zero-based
+- `assign` inside a loop does not reset — initialize variables before loops
+- `limit` filter on arrays caps at 20: `collection.products | limit: 20`
+- Section groups: header/footer must use `{% sections 'group-name' %}`

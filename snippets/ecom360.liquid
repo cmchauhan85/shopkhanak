@@ -1,0 +1,579 @@
+<script type="text/javascript">
+  // * Theme file for custom changes
+  try {
+      // * Listening for the event "zecpeThemeScriptLoaded" on the document and executing the code
+      window.zecpeCustomCode = function (){
+        // * Custom code goes here
+      }
+  } catch (err) {
+      console.log(err)
+  }
+    // * Adding the touchmove event listener and preventing the propagation if zecpe checkout is initiated
+    try {
+    document.addEventListener(
+      "touchmove",
+      (e) => {
+        if (window.isZecpeCheckoutInitiated) {
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+        }
+      },
+      true
+    );
+  } catch (err) {
+    console.log(
+      `Error in adding touchmove event listener :: ${err?.message}`
+    );
+  }
+</script>
+
+<script>
+  
+  window.storeShopifyDomain = {{shop.permanent_domain | json}};
+  window.Shopify = {
+    ...window.Shopify,
+    shop: storeShopifyDomain,
+  };
+  window.onload = () => {
+    let shopifyObjectDomain = window?.Shopify?.shop;
+    if (!window.Shopify.shop || !Shopify.shop.includes("myshopify.com")) {
+      window.Shopify = {
+        ...window.Shopify,
+        shop: shopifyObjectDomain,
+      };
+    }
+  };
+  window.triggerSentry = (message) => {
+  try {
+    message = `[theme-script] :: ${message} :: ${window.location.href}`;
+    fetch(`${window.zecpeHostName}/api/utils/sentry`, {
+      method: "POST",
+      body: JSON.stringify({ message, type: "error", sentry: true }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (err) {
+    console.error(`Zecpe sentry error :: ${err?.message}`);
+  }
+};
+window.zecpeCheckFunctionAndCall = function (func, ...args) {
+  try {
+    let button = args[0];
+    // * Checking if button is a valid HTML element
+    if (button instanceof HTMLElement) {
+      if (button && button.children) {
+        if (Array.from(button.children).length === 2) {
+          Array.from(button.children)[0].style.display = "grid";
+          Array.from(button.children)[1].style.display = "none";
+        }
+        button.disabled = true;
+        button.style.cursor = "not-allowed";
+        // * Re-enabling button after 6 seconds
+        setTimeout(() => {
+          if (Array.from(button.children).length === 2) {
+            Array.from(button.children)[0].style.display = "none";
+            Array.from(button.children)[1].style.display = "flex";
+          }
+          button.removeAttribute("disabled");
+          button.style.cursor = "pointer";
+        }, 6000);
+      }
+    }
+    if (typeof window[func] === "function") {
+      window[func](...args);
+    } else {
+      let isZecpeThemeScriptLoaded = false;
+      let script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "https://cdn.zecpe.com/payModal/themeScript.js";
+      script.id = "zecpe-theme-script";
+      document.getElementsByTagName("head")[0].appendChild(script);
+      // * Wait for 2 seconds, if script is not loaded redirect to /cart/checkout
+      setTimeout(() => {
+        if (!isZecpeThemeScriptLoaded) {
+          window.location.href = "/cart/checkout";
+        }
+      }, 2000);
+      script.onload = function () {
+        isZecpeThemeScriptLoaded = true;
+        // * Triggering the custom code handler to overrwite the default code
+        window.zecpeCustomCode();
+        window[func](...args);
+      };
+    }
+  } catch (err) {
+    window.triggerSentry(`zecpeCheckFunctionAndCall :: ${err?.message}`);
+  }
+};
+window.ZecpeCheckVariant = (element, formElement = null) => {
+  try {
+    let addToCartBtn = element.closest("button");
+    if (
+      addToCartBtn &&
+      addToCartBtn.textContent?.trim()?.toLowerCase() === "add to cart" &&
+      addToCartBtn.disabled
+    ) {
+      return;
+    }
+    let productForm = formElement || element.closest("form");
+
+    if (productForm) {
+      let formObject = new Object();
+      let formEntries = new FormData(productForm).entries();
+      if (formEntries) {
+        for (let entry of formEntries) formObject[entry[0]] = entry[1];
+      }
+      if (!formObject.id) {
+        console.log(`Zecpe :: Id not found in form object`);
+        return;
+      }
+      HandleBuyNowZecpe(element, productForm);
+      return;
+    }
+  } catch (err) {
+    window.triggerSentry(`ZecpeCheckVariant :: ${err?.message}`);
+  }
+};
+
+
+</script>
+
+<script type="text/javascript">
+try {
+  const buttonInnerHTML = `<div id="lds-ring"><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div></div>
+              <span class="occ-btn-text" style="display : flex;align-items : center;justify-content : center;">
+                { ButtonText }
+              </span>`;
+
+  const checkoutButtonElementTypes = ["BUTTON", "A", "INPUT"];
+  const checkoutButtonAllowedText = ["checkout", "placeorder"];
+  const buyNowButtonAllowedText = ["buynow", "buyitnow"];
+
+  document.addEventListener(
+    "click",
+    (e) => {
+      try {
+        let clickTarget = e.target;
+        if (typeof clickTarget?.closest === "function") {
+          clickTarget = clickTarget.closest(".zecpe-btn");
+        }
+        if (
+          clickTarget?.classList?.contains("zecpe-btn") &&
+          clickTarget?.dataset?.function
+        ) {
+          let checkoutBtn = clickTarget;
+          let functionToBeInvoked = checkoutBtn.dataset.function;
+          // * Replacing the button innerHTML with buttonInnerHTML
+          checkoutBtn.innerHTML = buttonInnerHTML.replace(
+            "{ ButtonText }",
+            checkoutBtn.innerHTML.trim()
+          );
+          checkoutBtn.classList.add("zecpe-btn-clicked");
+
+          // * Stopping the event propagation
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          if (window.zecpeCheckFunctionAndCall) {
+            window.zecpeCheckFunctionAndCall(functionToBeInvoked, checkoutBtn);
+          } else {
+            window.location.href = "/cart/checkout";
+          }
+        }
+      } catch (err) {
+        window.triggerSentry(
+          `Error in click event listener :: ${err?.message}`
+        );
+      }
+    },
+    true
+  );
+
+  window.ZecpeCheckoutEventListenerHandler = (
+    checkoutBtn,
+    functionToBeInvoked
+  ) => {
+    try {
+      // * If element is Anchor tag, then checking if it has a valid href attribute, if yes return
+      if (
+        checkoutBtn.nodeName === "A" &&
+        checkoutBtn?.href?.length &&
+        !checkoutBtn?.href?.includes("checkout")
+      ) {
+        return;
+      }
+      // * Checking if button has zecpe-btn class
+      if (!checkoutBtn.classList.contains("zecpe-btn")) {
+        // * Checking if checkoutBtn is input tag
+        if (checkoutBtn.nodeName === "INPUT") {
+          // * Changing the checkoutBtn to a button tag
+          const newCheckoutBtn = document.createElement("button");
+          newCheckoutBtn.innerHTML = checkoutBtn.value;
+          // * Apply all styles to the new button
+          if (window.getComputedStyle) {
+            const styles = window.getComputedStyle(checkoutBtn);
+            for (let i = 0; i < styles.length; i++) {
+              const style = styles[i];
+              newCheckoutBtn.style[style] = styles.getPropertyValue(style);
+            }
+          }
+
+          // * Assigning the same attributes to the new button
+          for (let i = 0; i < checkoutBtn.attributes.length; i++) {
+            newCheckoutBtn.setAttribute(
+              checkoutBtn.attributes[i].name,
+              checkoutBtn.attributes[i].value
+            );
+          }
+          if (checkoutBtn?.parentNode) {
+            checkoutBtn.parentNode.insertBefore(newCheckoutBtn, checkoutBtn);
+            checkoutBtn.parentNode.removeChild(checkoutBtn);
+            checkoutBtn = newCheckoutBtn;
+          }
+        }
+        // * Adding zecpe-btn class to the button
+        checkoutBtn.classList.add("zecpe-btn");
+        let eventCaptured = false;
+        checkoutBtn.type = "button";
+        checkoutBtn.setAttribute("data-function", functionToBeInvoked);
+      }
+    } catch (err) {
+      window.triggerSentry(
+        `Error in ZecpeCheckoutEventListenerHandler :: ${err?.message}`
+      );
+    }
+  };
+  const automateThemeSetup = () => {
+    try {
+      if (window.zecpeAutomatedThemeSetupDone) return;
+      window.zecpeAutomatedThemeSetupDone = true;
+      // * Adding mutation observer to handle the case when the checkout button is added dynamically
+      // * select the node to observe for mutations (in this case, the body element)
+      const targetNode = document.querySelector("body");
+
+      // create a new instance of the MutationObserver
+      const observer = new MutationObserver(function (mutationsList) {
+        // loop through each mutation that has occurred
+        for (let mutation of mutationsList) {
+          // check if any nodes have been added
+          if (mutation.type === "childList" || mutation.type === "attributes") {
+            // * Function to add event listener to the node
+            const addEventListener = (node) => {
+              // check if the node is a button with textContent "Checkout"
+              if (
+                checkoutButtonElementTypes.includes(node.nodeName) &&
+                (checkoutButtonAllowedText.some((text) =>
+                  node.textContent
+                    ?.replace(/\s/g, "")
+                    ?.toLowerCase()
+                    ?.includes(text)
+                ) ||
+                  checkoutButtonAllowedText.some((text) =>
+                    node.value
+                      ?.replace(/\s/g, "")
+                      ?.toLowerCase()
+                      ?.includes(text)
+                  ))
+              ) {
+                // * perform any necessary action
+                ZecpeCheckoutEventListenerHandler(node, "handleOcc");
+              } else if (
+                checkoutButtonElementTypes.includes(node.nodeName) &&
+                (buyNowButtonAllowedText.some((text) =>
+                  node.textContent
+                    ?.replace(/\s/g, "")
+                    ?.toLowerCase()
+                    ?.includes(text)
+                ) ||
+                  buyNowButtonAllowedText.some((text) =>
+                    node.value
+                      ?.replace(/\s/g, "")
+                      ?.toLowerCase()
+                      ?.includes(text)
+                  ))
+              ) {
+                // * perform any necessary action
+                ZecpeCheckoutEventListenerHandler(node, "ZecpeCheckVariant");
+              }
+            };
+
+            // * Checking if the mutation is of type attributes and the attribute is class
+            if (
+              mutation.type === "attributes" &&
+              mutation.attributeName === "class"
+            ) {
+              let node = mutation.target;
+              // * Checking if the node is a button or anchor tag or input tag
+              if (
+                node.nodeName === "BUTTON" ||
+                node.nodeName === "A" ||
+                node.nodeName === "INPUT"
+              ) {
+                addEventListener(node);
+              }
+            }
+
+            // loop through each added node
+            for (let node of mutation.addedNodes) {
+              // * Getting all the buttons and anchor tags from node and checking if the node itself is a button or anchor tag
+              if (typeof node?.querySelectorAll !== "function") continue;
+              let nodes = node.querySelectorAll("button, a, input");
+              if (
+                node &&
+                (node.nodeName === "BUTTON" ||
+                  node.nodeName === "A" ||
+                  node.nodeName === "INPUT")
+              ) {
+                nodes = [node, ...nodes];
+              }
+
+              for (let node of nodes) {
+                addEventListener(node);
+              }
+            }
+          }
+        }
+      });
+
+      // * configure the observer to watch for childList mutations and subtree mutations
+      const observerConfig = {
+        childList: true,
+        subtree: true,
+        attributes: true,
+      };
+
+      // * start observing the target node for mutations
+      if (targetNode) {
+        observer.observe(targetNode, observerConfig);
+      }
+
+      // * Code to get all the buttons that have Checkout text on them
+      let checkoutButtons = Array.from(
+        document.querySelectorAll("button, a, input")
+      ).filter((button) => {
+        if (button.nodeName === "INPUT") {
+          const buttonText = button.value.replace(/\s/g, "").toLowerCase();
+          return checkoutButtonAllowedText.some((text) =>
+            buttonText?.includes(text)
+          );
+        } else {
+          const buttonText = button.textContent
+            .replace(/\s/g, "")
+            .toLowerCase();
+          return checkoutButtonAllowedText.some((text) =>
+            buttonText?.includes(text)
+          );
+        }
+      });
+
+      if (checkoutButtons.length) {
+        checkoutButtons.forEach((checkoutBtn) => {
+          ZecpeCheckoutEventListenerHandler(checkoutBtn, "handleOcc");
+        });
+      }
+      let buyNowButtons = Array.from(
+        document.querySelectorAll("button, a, input")
+      ).filter((button) => {
+        // Checking if button is input type
+        if (button.nodeName === "INPUT") {
+          const buttonText = button.value.replace(/\s/g, "").toLowerCase();
+          return buyNowButtonAllowedText.some((text) =>
+            buttonText?.includes(text)
+          );
+        } else {
+          const buttonText = button.textContent
+            .replace(/\s/g, "")
+            .toLowerCase();
+          return buyNowButtonAllowedText.some((text) =>
+            buttonText?.includes(text)
+          );
+        }
+      });
+      if (buyNowButtons.length) {
+        buyNowButtons.forEach((buyNowBtn) => {
+          ZecpeCheckoutEventListenerHandler(buyNowBtn, "ZecpeCheckVariant");
+        });
+      }
+    } catch (err) {
+      window.triggerSentry(`Error in automateThemeSetup :: ${err?.message}`);
+    }
+  };
+  window.addEventListener("DOMContentLoaded", automateThemeSetup);
+  // window.addEventListener("load", automateThemeSetup);
+} catch (err) {
+  window.triggerSentry(
+    `Error in doing automated theme setup :: ${err?.message}`
+  );
+}
+</script>
+
+<script async type="text/javascript">
+    let themeScriptLoaded = false;
+     // * Define a function to load the script with retries
+  function loadScriptWithRetries(url, retries) {
+    // * Checking if script is already loaded or retries are over
+    if(retries <=0 || themeScriptLoaded) return;
+    // * Creating a new script element
+    let script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    script.id = "zecpe-theme-script";
+    script.async = true;
+    script.onload = function() {
+      // * Script loaded successfully
+      themeScriptLoaded = true;
+      // * Triggering the custom code handler to overrwite the default code
+       window.zecpeCustomCode();
+    };
+
+    // * Append the script to the document head
+    document.head.appendChild(script);
+
+    // * Retrying after 2 seconds
+    setTimeout(function() {
+      loadScriptWithRetries(url, retries - 1);
+    }, 2000);
+  }
+  // * Call the loadScriptWithRetries function with the script URL and retries count
+  loadScriptWithRetries('https://cdn.zecpe.com/payModal/themeScript.js', 3);
+</script>
+
+<style>
+  #occ-payment-loader {
+    width: 40px;
+    height: 40px;
+    margin: auto !important;
+    color: #000 !important;
+    background: linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0), linear-gradient(currentColor 0 0);
+    background-size: 21px 21px;
+    background-repeat: no-repeat;
+    animation: sh5 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+  }
+  @keyframes sh5 {
+    0% {
+      background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    }
+    33% {
+      background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+      width: 60px;
+      height: 60px;
+    }
+    66% {
+      background-position: 100% 0, 100% 100%, 0 100%, 0 0;
+      width: 60px;
+      height: 60px;
+    }
+    100% {
+      background-position: 100% 0, 100% 100%, 0 100%, 0 0;
+    }
+  }
+
+  #occ-payment-loader-container {
+    min-height: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+  }
+  .zecpe-btn-clicked::after, .zecpe-btn-clicked::before {
+    content : "" !important;
+  }
+  #zecpe-overlay {
+    display: grid;
+    position: fixed;
+    top: 0;
+    place-items: center;
+    left: 0;
+    z-index: 99999999999999;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+  }
+
+  #zecpe-btn-text {
+    line-height: 18px;
+    text-align: left;
+  }
+
+  #zecpe-btn-header {
+    font-weight: 600;
+  }
+  #zecpe-btn-desc {
+    font-weight: 600;
+    font-size: 11px;
+  }
+  #zecpe-arrow-icon {
+    display: inline
+  }
+
+  .zecpe-buy-now {
+    background: #000;
+    width: 100%;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 13px;
+    font-family: Montserrat, sans-serif;
+    color: #fff;
+    height: 46px;
+    max-height: 46px;
+    position: relative;
+  }
+  #lds-ring {
+    display: none;
+    position : relative;
+    width: 100%;
+    height: 30px;
+    place-items: center;
+    text-align: center;
+    max-height: 100%;
+  }
+  #lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    width: 24px;
+    position : absolute;
+    height: 24px;
+    margin: 3px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  #lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  #lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  #lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .zecpe-buy-now {
+      font-size: 11px;
+    }
+    #zecpe-btn-header {
+      font-size: 14px
+    }
+    #zecpe-arrow-icon {
+      display: none
+    }
+    #zecpe-btn-text {
+      font-size: 14px;
+    }
+    #zecpe-btn-desc {
+      font-size: 7px;
+    }
+  }
+</style>

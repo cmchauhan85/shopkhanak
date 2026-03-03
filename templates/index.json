@@ -1,0 +1,243 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_LjgMyA": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_jBQ6Fc": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_17_2026_12_56_31_PM.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_jBQ6Fc"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 3,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": ""
+      }
+    },
+    "image_banner_BdrExt": {
+      "type": "image-banner",
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/Neutral_Modern_Store_Banner_Shopify_Banner.png",
+        "image_overlay_opacity": 0,
+        "image_height": "adapt",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "",
+        "image_behavior": "zoom-in",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "173973215265944cee": {
+      "type": "apps",
+      "blocks": {
+        "whatmore_shoppable_videos_app_block_HHc6Hb": {
+          "type": "shopify://apps/whatmore-shoppable-videos/blocks/app-block/20db8a72-315a-4364-8885-64219ee48303",
+          "settings": {
+            "heading": "Like it? Buy it!",
+            "template-type": "template-h",
+            "title-font-size": 40,
+            "title-font-size-portrait": 24,
+            "landscape-padding": 36,
+            "top-bottom-padding": 20,
+            "scroll-video-tile-size": 80,
+            "scroll-video-tile-size-portrait": 80,
+            "min-height": 380
+          }
+        }
+      },
+      "block_order": [
+        "whatmore_shoppable_videos_app_block_HHc6Hb"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_collection_iM6JLX": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".card__inner {width: 295px; height: 453px;}",
+        "@media screen and (max-width: 768px) {.card__inner {width: calc((100vw - 50px) / 2); height: 230px; }}"
+      ],
+      "settings": {
+        "title": "CO-ORDS SET",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "rozana",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_YfYtBh": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".card__inner {width: 290px; height: 453px;}",
+        "@media screen and (max-width: 768px) {.card__inner {width: calc((100vw - 50px) / 2); height: 230px; }}"
+      ],
+      "settings": {
+        "title": "SUIT SETS",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "phulwaari",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 12,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_cMhVmR": {
+      "type": "featured-collection",
+      "custom_css": [
+        ".card__inner {width: 295px; height: 453px;}",
+        "@media screen and (max-width: 768px) {.card__inner {width: calc((100vw - 50px) / 2); height: 230px; }}"
+      ],
+      "settings": {
+        "title": "Tyohaar",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "tyohaar",
+        "products_to_show": 6,
+        "columns_desktop": 3,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "NEW ARRIVALS",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "view-all",
+        "products_to_show": 3,
+        "columns_desktop": 3,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    },
+    "175861318782b68b95": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_EAeRVq": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_EAeRVq"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "slideshow_LjgMyA",
+    "image_banner_BdrExt",
+    "173973215265944cee",
+    "featured_collection_iM6JLX",
+    "featured_collection_YfYtBh",
+    "featured_collection_cMhVmR",
+    "featured_collection",
+    "175861318782b68b95"
+  ]
+}

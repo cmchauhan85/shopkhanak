@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_xgi9bd": {
+          "type": "announcement",
+          "settings": {
+            "text": "COD AVAILABLE | Flat 10% off on all orders. No Code needed.",
+            "link": ""
+          }
+        },
+        "announcement_yGCtHY": {
+          "type": "announcement",
+          "settings": {
+            "text": "COD AVAILABLE | Additional 5% off on all PREPAID ORDERS | FREE SHIPPING",
+            "link": ""
+          }
+        },
+        "announcement_aemf3H": {
+          "type": "announcement",
+          "settings": {
+            "text": "COD AVAILABLE | Call / Whatsapp for any assistance: +91  7042730081",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_xgi9bd",
+        "announcement_yGCtHY",
+        "announcement_aemf3H"
+      ],
+      "settings": {
+        "color_scheme": "scheme-fe3dc4e4-b85b-4eee-ad33-81d45fa52120",
+        "show_line_separator": true,
+        "show_social": true,
+        "auto_rotate": true,
+        "change_slides_speed": 4,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "custom_css": [
+        ".header__wrapper {display: grid !important; grid-template-columns: auto 1fr auto; align-items: center;}",
+        ".header__heading {grid-column: 1; justify-self: start;}",
+        ".header__inline-menu {grid-column: 2; justify-self: center !important;}",
+        ".header__icons {grid-column: 3; justify-self: end;}"
+      ],
+      "settings": {
+        "logo_position": "middle-left",
+        "menu": "main-menu",
+        "menu_type_desktop": "mega",
+        "sticky_header_type": "reduce-logo-size",
+        "show_line_separator": false,
+        "color_scheme": "scheme-3",
+        "menu_color_scheme": "scheme-4",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "mobile_logo_position": "center",
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

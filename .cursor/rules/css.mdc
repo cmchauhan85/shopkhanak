@@ -1,0 +1,66 @@
+# CSS / Styling Rules
+
+## Naming Convention
+Always use BEM with `.theme-` prefix to avoid conflicts with app-injected styles:
+```
+.theme-[component]__[element]--[modifier]
+
+Examples:
+.theme-hero__title
+.theme-hero__cta--primary
+.theme-card__image--rounded
+.theme-nav__link--active
+```
+
+## Design Tokens
+Use CSS custom properties for all design values — never hardcode hex/px values inline:
+```css
+:root {
+  --theme-color-primary: #1a1a1a;
+  --theme-color-accent: #e63946;
+  --theme-color-bg: #ffffff;
+  --theme-color-text: #333333;
+
+  --theme-font-heading: 'Heading Font', serif;
+  --theme-font-body: 'Body Font', sans-serif;
+
+  --theme-spacing-xs: 0.5rem;
+  --theme-spacing-sm: 1rem;
+  --theme-spacing-md: 1.5rem;
+  --theme-spacing-lg: 2.5rem;
+  --theme-spacing-xl: 4rem;
+
+  --theme-radius: 4px;
+  --theme-transition: 0.2s ease;
+}
+```
+
+## Approach
+- Mobile-first: base styles target mobile, use `min-width` for breakpoints
+- Never use ID selectors for styling — classes only
+- Avoid `!important` — if required to override app styles, add a comment explaining why
+- Group properties in this order: position → display/flex/grid → box model → typography → visual/color → animation
+
+## Breakpoints
+```css
+/* Mobile first base styles */
+.theme-hero { ... }
+
+/* Tablet */
+@media (min-width: 750px) { ... }
+
+/* Desktop */
+@media (min-width: 990px) { ... }
+
+/* Large desktop */
+@media (min-width: 1400px) { ... }
+```
+
+## App Conflict Prevention
+- Never use generic class names like `.button`, `.title`, `.container` — apps use these
+- Scope all styles under `.theme-` or a section-specific parent class
+- When overriding app styles is necessary, scope tightly and comment clearly:
+```css
+/* Override Judge.me star color to match theme */
+.jdgm-star { color: var(--theme-color-accent) !important; }
+```

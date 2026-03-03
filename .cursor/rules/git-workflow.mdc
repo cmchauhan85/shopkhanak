@@ -1,0 +1,73 @@
+# Git & Workflow Rules
+
+## Branch Strategy
+
+```
+main          → live/published theme (never push directly)
+staging       → staging/preview theme
+feature/*     → new features, pushed to dev theme
+fix/*         → bug fixes
+app/*         → app integration work
+hotfix/*      → urgent live fixes (merge to main + staging)
+```
+
+## Commit Message Format
+
+```
+type(scope): short description
+
+Types:
+  feat      → new section, block, or feature
+  fix       → bug fix
+  style     → CSS/visual changes with no logic change
+  chore     → schema, config, or dependency updates
+  app       → third-party app integration
+  refactor  → code restructure with no behavior change
+  perf      → performance improvement
+  docs      → documentation only
+
+Examples:
+  feat(section): add sticky announcement bar with countdown timer
+  fix(cart): resolve app block overlap on mobile drawer
+  style(hero): update CTA button hover state
+  chore(schema): add border radius setting to card section
+  app(judge-me): integrate star ratings into collection card
+  perf(images): add lazy loading to all below-fold product images
+```
+
+## Shopify CLI Workflow
+
+```bash
+# Start local dev (hot reload against dev theme)
+shopify theme dev --store your-store.myshopify.com --theme <dev-theme-id>
+
+# Push specific files only (safer than pushing everything)
+shopify theme push --theme <dev-theme-id> --only sections/hero.liquid
+
+# Pull latest from a theme (sync before starting work)
+shopify theme pull --theme <live-theme-id>
+
+# List all themes and their IDs
+shopify theme list
+
+# Push to staging for QA
+shopify theme push --theme <staging-theme-id>
+```
+
+## Before Every Commit
+
+- [ ] Tested on dev theme via `shopify theme dev`
+- [ ] No hardcoded product IDs, handles, or prices
+- [ ] App blocks preserved in any modified section schemas
+- [ ] No `settings_data.json` changes accidentally staged
+- [ ] CSS classes namespaced with `.theme-`
+- [ ] New strings added to `locales/en.default.json`
+
+## Pull Request Checklist
+
+- [ ] Branch is off `main` (or `staging`)
+- [ ] PR title follows commit message format
+- [ ] Tested on a dev/staging theme
+- [ ] App integrations verified (blocks still appear in editor)
+- [ ] Mobile QA done
+- [ ] No console errors introduced
