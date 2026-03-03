@@ -267,8 +267,188 @@ a.product__text {
   margin-top: 0;
 }
 
+.product__text-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.product__text-row .product__text.inline-richtext.caption-with-letter-spacing {
+  margin-bottom: 0;
+}
+
+.product__text-row .share-button {
+  margin-top: 0;
+  margin-left: 0;
+  flex-shrink: 0;
+}
+
 .product__accordion .accordion__content {
   padding: 0 1rem;
+}
+
+/* Price row: price + tax on left, loved badge on right */
+.product__price-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product__price-row__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.product__price-and-tax {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.product__price-and-tax .product__tax {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.product__loved-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  background: linear-gradient(to right, rgba(255, 200, 160, 0.5), rgba(255, 180, 180, 0.5));
+  color: rgb(var(--color-foreground));
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.product__loved-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c00;
+}
+
+.product__loved-badge__text {
+  white-space: nowrap;
+}
+
+.product__loved-badge__count {
+  color: #c00;
+  font-weight: 700;
+}
+
+/* Coupon code badge */
+.product__coupon-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--product-coupon-text) 40%, transparent);
+  background-color: var(--product-coupon-bg);
+  color: var(--product-coupon-text);
+}
+
+.product__coupon-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--product-coupon-text) 15%, var(--product-coupon-bg));
+  color: var(--product-coupon-text);
+}
+
+.product__coupon-badge__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.product__coupon-badge__title {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.product__coupon-badge__desc {
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+.product__coupon-badge__copy {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--product-coupon-text);
+}
+
+.product__coupon-badge__copy:hover {
+  opacity: 0.85;
+}
+
+/* Limited stock alert */
+.product__stock-alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--product-stock-alert-text) 40%, transparent);
+  background-color: var(--product-stock-alert-bg);
+  color: var(--product-stock-alert-text);
+}
+
+.product__stock-alert__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #ea580c;
+}
+
+.product__stock-alert__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.product__stock-alert__title {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.product__stock-alert__message {
+  font-size: 1.2rem;
+  opacity: 0.95;
+}
+
+.product__stock-alert--hidden {
+  display: none;
 }
 
 .product .price .badge {
@@ -322,6 +502,7 @@ a.product__text {
 
 .product__tax {
   margin-top: -1.4rem;
+  margin-left: 0.5rem;
 }
 
 .product--no-media noscript .product-form__input,

@@ -31,6 +31,38 @@
           "type": "price",
           "settings": {}
         },
+        "loved_badge": {
+          "type": "loved_badge",
+          "settings": {
+            "prefix": "Loved by",
+            "count": "1000+",
+            "suffix": "shoppers"
+          }
+        },
+        "coupon_badge": {
+          "type": "coupon_badge",
+          "settings": {
+            "title": "First Purchase Gift",
+            "coupon_code": "WELCOME10",
+            "discount_text": "for 10% off",
+            "copy_button_label": "COPY CODE",
+            "background_color": "#ffe4ec",
+            "text_color": "#b91c4a"
+          }
+        },
+        "stock_alert": {
+          "type": "stock_alert",
+          "settings": {
+            "title_selling_fast": "Limited Stock Alert",
+            "message_selling_fast": "Only {{count}} pieces left in {{size}}",
+            "selling_fast_threshold": 10,
+            "title_almost_gone": "Almost Gone",
+            "message_almost_gone": "Only {{count}} pieces left in {{size}}",
+            "almost_gone_threshold": 3,
+            "background_color": "#ffe4ec",
+            "text_color": "#b91c4a"
+          }
+        },
         "popup_yMPq7V": {
           "type": "popup",
           "settings": {
@@ -82,12 +114,15 @@
       },
       "block_order": [
         "vendor",
+        "share_qx4GzD",
         "title",
         "judge_me_reviews_preview_badge_EJ96rE",
         "price",
+        "loved_badge",
+        "coupon_badge",
+        "stock_alert",
         "popup_yMPq7V",
         "variant_picker",
-        "share_qx4GzD",
         "quantity_selector",
         "buy_buttons",
         "avada_order_limits_app_block_EcFRxM",

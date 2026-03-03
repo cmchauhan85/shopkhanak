@@ -85,6 +85,14 @@
               {%- when '@app' -%}
                 {% render block %}
               {%- when 'text' -%}
+                {%- if forloop.index < section.blocks.size -%}
+                  {%- assign next_block = section.blocks[forloop.index] -%}
+                {%- else -%}
+                  {%- assign next_block = nil -%}
+                {%- endif -%}
+                {%- if next_block and next_block.type == 'share' -%}
+                  <div class="product__text-row">
+                {%- endif -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
                   {{ block.shopify_attributes }}
@@ -92,7 +100,7 @@
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
-  <div class="product__title" {{ block.shopify_attributes }}>
+                <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
                     <h2 class="h1">
@@ -101,33 +109,136 @@
                   </a>
                 </div>
               {%- when 'price' -%}
-                <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
+                {%- if forloop.index < section.blocks.size -%}
+                  {%- assign next_block = section.blocks[forloop.index] -%}
+                {%- else -%}
+                  {%- assign next_block = nil -%}
+                {%- endif -%}
+                {%- if next_block and next_block.type == 'loved_badge' -%}
+                  <div class="product__price-row">
+                  <div class="product__price-row__left">
+                {%- endif -%}
+                <div class="product__price-and-tax">
+                  <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                    {%- render 'price',
+                      product: product,
+                      use_variant: true,
+                      show_badges: true,
+                      price_class: 'price--large'
+                    -%}
+                  </div>
+                  <div class="product__tax caption rte">
+                  Tax included
+                  </div>
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                   </div>
                 {%- endif -%}
-                <div class="product__tax caption rte">
-                  {%- if cart.taxes_included -%}
-                    {{ 'products.product.include_taxes' | t }}
-                  {%- endif -%}
-                  {%- if shop.shipping_policy.body != blank -%}
-                    {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                  {%- endif -%}
-                </div>
                 <div {{ block.shopify_attributes }}>
                   {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                   {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
                     <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                     {{ form | payment_terms }}
                   {%- endform -%}
+                </div>
+                {%- if next_block and next_block.type == 'loved_badge' -%}
+                  </div>
+                {%- endif -%}
+              {%- when 'loved_badge' -%}
+                {%- if forloop.index0 > 0 -%}
+                  {%- assign prev_index = forloop.index0 | minus: 1 -%}
+                  {%- assign prev_block = section.blocks[prev_index] -%}
+                {%- else -%}
+                  {%- assign prev_block = nil -%}
+                {%- endif -%}
+                {%- if prev_block and prev_block.type == 'price' -%}
+                  <div class="product__loved-badge" {{ block.shopify_attributes }}>
+                    <span class="product__loved-badge__icon" aria-hidden="true">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 13.5L6.875 12.45C3.5 9.36 1.5 7.305 1.5 4.83C1.5 2.73 3.12 1.125 5.25 1.125C6.515 1.125 7.715 1.755 8 2.67C8.285 1.755 9.485 1.125 10.75 1.125C12.88 1.125 14.5 2.73 14.5 4.83C14.5 7.305 12.5 9.36 9.125 12.45L8 13.5Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <span class="product__loved-badge__text">
+                      {%- if block.settings.prefix != blank -%}{{ block.settings.prefix | escape }}{% endif %}
+                      <strong class="product__loved-badge__count">{{ block.settings.count | escape }}</strong>
+                      {%- if block.settings.suffix != blank -%} {{ block.settings.suffix | escape }}{% endif %}
+                    </span>
+                  </div>
+                  </div>
+                {%- else -%}
+                  <div class="product__loved-badge" {{ block.shopify_attributes }}>
+                    <span class="product__loved-badge__icon" aria-hidden="true">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 13.5L6.875 12.45C3.5 9.36 1.5 7.305 1.5 4.83C1.5 2.73 3.12 1.125 5.25 1.125C6.515 1.125 7.715 1.755 8 2.67C8.285 1.755 9.485 1.125 10.75 1.125C12.88 1.125 14.5 2.73 14.5 4.83C14.5 7.305 12.5 9.36 9.125 12.45L8 13.5Z" fill="currentColor"/>
+                      </svg>
+                    </span>
+                    <span class="product__loved-badge__text">
+                      {%- if block.settings.prefix != blank -%}{{ block.settings.prefix | escape }}{% endif %}
+                      <strong class="product__loved-badge__count">{{ block.settings.count | escape }}</strong>
+                      {%- if block.settings.suffix != blank -%} {{ block.settings.suffix | escape }}{% endif %}
+                    </span>
+                  </div>
+                {%- endif -%}
+              {%- when 'coupon_badge' -%}
+                <div
+                  class="product__coupon-badge"
+                  {{ block.shopify_attributes }}
+                  style="--product-coupon-bg: {{ block.settings.background_color }}; --product-coupon-text: {{ block.settings.text_color }};"
+                >
+                  <span class="product__coupon-badge__icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 12V8H4V12M20 12C18.9 12 18 12.9 18 14C18 15.1 18.9 16 20 16V12M20 12V16C18.9 16 18 15.1 18 14C18 12.9 18.9 12 20 12M4 12C5.1 12 6 12.9 6 14C6 15.1 5.1 16 4 16V12M4 12V16C5.1 16 6 15.1 6 14C6 12.9 5.1 12 4 12M6 14H6.01V14.01H6V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <div class="product__coupon-badge__content">
+                    <span class="product__coupon-badge__title">{{ block.settings.title | escape }}</span>
+                    <span class="product__coupon-badge__desc">
+                      Use code <strong>{{ block.settings.coupon_code | escape }}</strong> {{ block.settings.discount_text | escape }}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    class="product__coupon-badge__copy link"
+                    data-copy-coupon="{{ block.settings.coupon_code | escape }}"
+                    data-copy-label="{{ block.settings.copy_button_label | escape }}"
+                    aria-label="{{ block.settings.copy_button_label | escape }}"
+                  >
+                    {{ block.settings.copy_button_label | escape }}
+                  </button>
+                </div>
+              {%- when 'stock_alert' -%}
+                {%- assign variant = product.selected_or_first_available_variant -%}
+                {%- assign show_stock_alert = false -%}
+                {%- assign alert_title = block.settings.title_selling_fast -%}
+                {%- assign alert_message = '' -%}
+                {%- if variant.inventory_management == 'shopify' and variant.inventory_quantity >= 1 and variant.inventory_quantity <= block.settings.selling_fast_threshold -%}
+                  {%- assign show_stock_alert = true -%}
+                  {%- assign qty = variant.inventory_quantity -%}
+                  {%- assign size_name = variant.title | default: 'this size' -%}
+                  {%- if qty <= block.settings.almost_gone_threshold -%}
+                    {%- assign alert_title = block.settings.title_almost_gone -%}
+                    {%- assign alert_message = block.settings.message_almost_gone | replace: '{{count}}', qty | replace: '{{size}}', size_name -%}
+                  {%- else -%}
+                    {%- assign alert_title = block.settings.title_selling_fast -%}
+                    {%- assign alert_message = block.settings.message_selling_fast | replace: '{{count}}', qty | replace: '{{size}}', size_name -%}
+                  {%- endif -%}
+                {%- endif -%}
+                <div
+                  class="product__stock-alert{% unless show_stock_alert %} product__stock-alert--hidden{% endunless %}"
+                  {{ block.shopify_attributes }}
+                  style="--product-stock-alert-bg: {{ block.settings.background_color }}; --product-stock-alert-text: {{ block.settings.text_color }};"
+                >
+                  <span class="product__stock-alert__icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 23C12 23 17 18 17 12C17 8 15 5 12 3C9 5 7 8 7 12C7 18 12 23 12 23Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <div class="product__stock-alert__content">
+                    <span class="product__stock-alert__title">{{ alert_title | escape }}</span>
+                    <span class="product__stock-alert__message">{{ alert_message }}</span>
+                  </div>
                 </div>
               {%- when 'inventory' -%}
                 <p
@@ -449,8 +560,20 @@
                   {{- block.settings.text -}}
                 </a>
               {%- when 'share' -%}
-                {% assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin %}
-                {% render 'share-button', block: block, share_link: share_url %}
+                {%- if forloop.index0 > 0 -%}
+                  {%- assign prev_index = forloop.index0 | minus: 1 -%}
+                  {%- assign prev_block = section.blocks[prev_index] -%}
+                {%- else -%}
+                  {%- assign prev_block = nil -%}
+                {%- endif -%}
+                {%- if prev_block and prev_block.type == 'text' -%}
+                  {% assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin %}
+                  {% render 'share-button', block: block, share_link: share_url %}
+                  </div>
+                {%- else -%}
+                  {% assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin %}
+                  {% render 'share-button', block: block, share_link: share_url %}
+                {%- endif -%}
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
@@ -718,6 +841,23 @@
       });
     </script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-copy-coupon]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var code = this.getAttribute('data-copy-coupon');
+            if (code && navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(code).then(function () {
+                var label = btn.getAttribute('data-copy-label') || btn.textContent;
+                btn.textContent = '{{ 'general.share.copy_success' | t }}';
+                setTimeout(function () { btn.textContent = label; }, 2000);
+              });
+            }
+          });
+        });
+      });
+    </script>
+
     {%- liquid
       if product.selected_or_first_available_variant.featured_media
         assign seo_media = product.selected_or_first_available_variant.featured_media
@@ -823,6 +963,147 @@
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
       "limit": 1
+    },
+    {
+      "type": "loved_badge",
+      "name": "Loved badge",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "prefix",
+          "label": "Prefix text",
+          "default": "Loved by"
+        },
+        {
+          "type": "text",
+          "id": "count",
+          "label": "Count or number",
+          "default": "1000+"
+        },
+        {
+          "type": "text",
+          "id": "suffix",
+          "label": "Suffix text",
+          "default": "shoppers"
+        }
+      ]
+    },
+    {
+      "type": "coupon_badge",
+      "name": "Coupon code badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "First Purchase Gift"
+        },
+        {
+          "type": "text",
+          "id": "coupon_code",
+          "label": "Coupon code",
+          "default": "WELCOME10"
+        },
+        {
+          "type": "text",
+          "id": "discount_text",
+          "label": "Discount description",
+          "default": "for 10% off"
+        },
+        {
+          "type": "text",
+          "id": "copy_button_label",
+          "label": "Copy button label",
+          "default": "COPY CODE"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#ffe4ec"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#b91c4a"
+        }
+      ]
+    },
+    {
+      "type": "stock_alert",
+      "name": "Limited stock alert",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Selling fast (higher threshold)"
+        },
+        {
+          "type": "text",
+          "id": "title_selling_fast",
+          "label": "Title when selling fast",
+          "default": "Limited Stock Alert"
+        },
+        {
+          "type": "text",
+          "id": "message_selling_fast",
+          "label": "Message (use {{count}} and {{size}} for quantity and size)",
+          "default": "Only {{count}} pieces left in {{size}}"
+        },
+        {
+          "type": "range",
+          "id": "selling_fast_threshold",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "default": 10,
+          "label": "Show 'selling fast' when stock is at or below",
+          "unit": "qty"
+        },
+        {
+          "type": "header",
+          "content": "Almost gone (lower threshold)"
+        },
+        {
+          "type": "text",
+          "id": "title_almost_gone",
+          "label": "Title when almost gone",
+          "default": "Almost Gone"
+        },
+        {
+          "type": "text",
+          "id": "message_almost_gone",
+          "label": "Message (use {{count}} and {{size}} for quantity and size)",
+          "default": "Only {{count}} pieces left in {{size}}"
+        },
+        {
+          "type": "range",
+          "id": "almost_gone_threshold",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 3,
+          "label": "Show 'almost gone' when stock is at or below",
+          "unit": "qty"
+        },
+        {
+          "type": "header",
+          "content": "Appearance"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#ffe4ec"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#b91c4a"
+        }
+      ]
     },
     {
       "type": "sku",
