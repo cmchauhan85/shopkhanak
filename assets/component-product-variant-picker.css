@@ -2,6 +2,90 @@ variant-selects {
   display: block;
 }
 
+/* Size widget: Select Size + FIND MY SIZE row, maroon size buttons */
+.product-form__size-widget {
+  margin-bottom: 1.6rem;
+}
+
+.product-form__size-widget__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.product-form__size-widget__label {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgb(var(--color-foreground));
+}
+
+.product-form__size-widget__find-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.product-form__size-widget__find-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #5c4033;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.product-form__size-widget__find-btn:hover {
+  color: #4a3329;
+  text-decoration: underline;
+}
+
+.product-form__size-widget__find-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Size option buttons: dark maroon background, white text, rounded */
+.product-form__input--size-buttons.product-form__input--pill input[type='radio'] + label {
+  background-color: #84173f;
+  color: #fff;
+  border-color: #5c4033;
+  border-radius: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  min-width: 4rem;
+  margin: 0.4rem 0.4rem 0 0;
+}
+
+.product-form__input--size-buttons.product-form__input--pill input[type='radio'] + label:hover {
+  background-color: #4a3329;
+  border-color: #4a3329;
+  color: #fff;
+}
+
+.product-form__input--size-buttons.product-form__input--pill input[type='radio']:checked + label {
+  background-color: #84173f;
+  color: #fff;
+  border-color: #84173f;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #84173f;
+}
+
+.product-form__input--size-buttons.product-form__input--pill input[type='radio']:disabled + label,
+.product-form__input--size-buttons.product-form__input--pill input[type='radio'].disabled + label {
+  background-color: rgba(92, 64, 51, 0.4);
+  border-color: rgba(92, 64, 51, 0.4);
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .product--no-media .product-form__input--pill,
 .product--no-media .product-form__input--swatch,
 .product--no-media .product-form__input--dropdown {

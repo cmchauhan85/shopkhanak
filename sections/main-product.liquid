@@ -232,6 +232,7 @@
                   {%- endif -%}
                 {%- endif -%}
                 <div
+                  id="StockAlert-{{ section.id }}"
                   class="product__stock-alert{% unless show_stock_alert %} product__stock-alert--hidden{% endunless %}"
                   {{ block.shopify_attributes }}
                   style="--product-stock-alert-bg: {{ block.settings.background_color }}; --product-stock-alert-text: {{ block.settings.text_color }};"
@@ -578,7 +579,7 @@
                       {%- assign _alert_msg = 'Only ' | append: _qty | append: ' pieces left in ' | append: _size_name -%}
                     {%- endif -%}
                   {%- endif -%}
-                  <div class="product__stock-alert{% unless _show_stock %} product__stock-alert--hidden{% endunless %}" style="--product-stock-alert-bg: #ffe4ec; --product-stock-alert-text: #b91c4a;">
+                  <div id="StockAlert-{{ section.id }}" class="product__stock-alert{% unless _show_stock %} product__stock-alert--hidden{% endunless %}" style="--product-stock-alert-bg: #ffe4ec; --product-stock-alert-text: #b91c4a;">
                     <span class="product__stock-alert__icon" aria-hidden="true">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 23C12 23 17 18 17 12C17 8 15 5 12 3C9 5 7 8 7 12C7 18 12 23 12 23Z" fill="currentColor"/>
@@ -590,23 +591,30 @@
                     </div>
                   </div>
                 {%- endunless -%}
-                <modal-opener
-                  class="product-popup-modal__opener no-js-hidden quick-add-hidden"
-                  data-modal="#PopupModal-{{ block.id }}"
-                  {{ block.shopify_attributes }}
-                >
-                  <button
-                    id="ProductPopup-{{ block.id }}"
-                    class="product-popup-modal__button link"
-                    type="button"
-                    aria-haspopup="dialog"
+                {%- if forloop.index < section.blocks.size -%}
+                  {%- assign _next_block = section.blocks[forloop.index] -%}
+                {%- else -%}
+                  {%- assign _next_block = nil -%}
+                {%- endif -%}
+                {%- unless _next_block and _next_block.type == 'variant_picker' -%}
+                  <modal-opener
+                    class="product-popup-modal__opener no-js-hidden quick-add-hidden"
+                    data-modal="#PopupModal-{{ block.id }}"
+                    {{ block.shopify_attributes }}
                   >
-                    {{ block.settings.text | default: block.settings.page.title | escape }}
-                  </button>
-                </modal-opener>
-                <a href="{{ block.settings.page.url }}" class="product-popup-modal__button link no-js">
-                  {{- block.settings.text -}}
-                </a>
+                    <button
+                      id="ProductPopup-{{ block.id }}"
+                      class="product-popup-modal__button link"
+                      type="button"
+                      aria-haspopup="dialog"
+                    >
+                      {{ block.settings.text | default: block.settings.page.title | escape }}
+                    </button>
+                  </modal-opener>
+                  <a href="{{ block.settings.page.url }}" class="product-popup-modal__button link no-js">
+                    {{- block.settings.text -}}
+                  </a>
+                {%- endunless -%}
               {%- when 'share' -%}
                 {%- if forloop.index0 > 0 -%}
                   {%- assign prev_index = forloop.index0 | minus: 1 -%}
@@ -624,7 +632,14 @@
                 {%- endif -%}
 
               {%- when 'variant_picker' -%}
-                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+                {%- assign size_chart_block = nil -%}
+                {%- for b in section.blocks -%}
+                  {%- if b.type == 'popup' -%}
+                    {%- assign size_chart_block = b -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id, size_chart_block: size_chart_block, section_id: section.id %}
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,

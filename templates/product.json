@@ -137,6 +137,44 @@
         "padding_bottom": 12
       }
     },
+    "trust-markers": {
+      "type": "trust-markers",
+      "blocks": {
+        "secure_checkout": {
+          "type": "trust_marker",
+          "settings": {
+            "icon": "lock",
+            "title": "Secure Checkout",
+            "subtext": "ENCRYPTED PAYMENTS"
+          }
+        },
+        "easy_returns": {
+          "type": "trust_marker",
+          "settings": {
+            "icon": "return",
+            "title": "7-Day Easy Returns",
+            "subtext": "NO QUESTIONS ASKED"
+          }
+        },
+        "handcrafted": {
+          "type": "trust_marker",
+          "settings": {
+            "icon": "heart",
+            "title": "Handcrafted Quality",
+            "subtext": "ARTISANAL EXCELLENCE"
+          }
+        }
+      },
+      "block_order": ["secure_checkout", "easy_returns", "handcrafted"],
+      "settings": {
+        "background_color": "#f8f6f3",
+        "icon_color": "#5c4033",
+        "title_color": "#333333",
+        "subtext_color": "#6b6b6b",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
     "17677711364db48165": {
       "type": "apps",
       "blocks": {
@@ -181,6 +219,7 @@
   },
   "order": [
     "main",
+    "trust-markers",
     "17677711364db48165",
     "related-products",
     "1767771133bf0dc4ca"

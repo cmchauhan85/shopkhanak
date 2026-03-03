@@ -1163,6 +1163,12 @@ class VariantSelects extends HTMLElement {
           pricePerItemDestination.classList.toggle('hidden', pricePerItemSource.classList.contains('hidden'));
         }
 
+        const stockAlertSource = html.getElementById(`StockAlert-${sectionId}`);
+        const stockAlertDestination = document.getElementById(`StockAlert-${sectionId}`);
+        if (stockAlertSource && stockAlertDestination) {
+          stockAlertDestination.outerHTML = stockAlertSource.outerHTML;
+        }
+
         const price = document.getElementById(`price-${this.dataset.section}`);
 
         if (price) price.classList.remove('hidden');
