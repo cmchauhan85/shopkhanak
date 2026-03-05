@@ -194,9 +194,7 @@
                   style="--product-coupon-bg: {{ block.settings.background_color }}; --product-coupon-text: {{ block.settings.text_color }};"
                 >
                   <span class="product__coupon-badge__icon" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20 12V8H4V12M20 12C18.9 12 18 12.9 18 14C18 15.1 18.9 16 20 16V12M20 12V16C18.9 16 18 15.1 18 14C18 12.9 18.9 12 20 12M4 12C5.1 12 6 12.9 6 14C6 15.1 5.1 16 4 16V12M4 12V16C5.1 16 6 15.1 6 14C6 12.9 5.1 12 4 12M6 14H6.01V14.01H6V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <img src="{{ 'tag.svg' | asset_url }}" alt="" width="24" height="24" loading="lazy">
                   </span>
                   <div class="product__coupon-badge__content">
                     <span class="product__coupon-badge__title">{{ block.settings.title | escape }}</span>
@@ -238,9 +236,7 @@
                   style="--product-stock-alert-bg: {{ block.settings.background_color }}; --product-stock-alert-text: {{ block.settings.text_color }};"
                 >
                   <span class="product__stock-alert__icon" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 23C12 23 17 18 17 12C17 8 15 5 12 3C9 5 7 8 7 12C7 18 12 23 12 23Z" fill="currentColor"/>
-                    </svg>
+                    <img src="{{ 'fire.svg' | asset_url }}" alt="" width="24" height="24" loading="lazy">
                   </span>
                   <div class="product__stock-alert__content">
                     <span class="product__stock-alert__title">{{ alert_title | escape }}</span>
@@ -552,9 +548,7 @@
                 {%- unless has_coupon_block -%}
                   <div class="product__coupon-badge" style="--product-coupon-bg: #ffe4ec; --product-coupon-text: #b91c4a;">
                     <span class="product__coupon-badge__icon" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 12V8H4V12M20 12C18.9 12 18 12.9 18 14C18 15.1 18.9 16 20 16V12M20 12V16C18.9 16 18 15.1 18 14C18 12.9 18.9 12 20 12M4 12C5.1 12 6 12.9 6 14C6 15.1 5.1 16 4 16V12M4 12V16C5.1 16 6 15.1 6 14C6 12.9 5.1 12 4 12M6 14H6.01V14.01H6V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      <img src="{{ 'tag.svg' | asset_url }}" alt="" width="24" height="24" loading="lazy">
                     </span>
                     <div class="product__coupon-badge__content">
                       <span class="product__coupon-badge__title">First Purchase Gift</span>
@@ -581,9 +575,7 @@
                   {%- endif -%}
                   <div id="StockAlert-{{ section.id }}" class="product__stock-alert{% unless _show_stock %} product__stock-alert--hidden{% endunless %}" style="--product-stock-alert-bg: #ffe4ec; --product-stock-alert-text: #b91c4a;">
                     <span class="product__stock-alert__icon" aria-hidden="true">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 23C12 23 17 18 17 12C17 8 15 5 12 3C9 5 7 8 7 12C7 18 12 23 12 23Z" fill="currentColor"/>
-                      </svg>
+                      <img src="{{ 'fire.svg' | asset_url }}" alt="" width="24" height="24" loading="lazy">
                     </span>
                     <div class="product__stock-alert__content">
                       <span class="product__stock-alert__title">{{ _alert_title }}</span>
