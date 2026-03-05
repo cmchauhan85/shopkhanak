@@ -243,6 +243,36 @@
                     <span class="product__stock-alert__message">{{ alert_message }}</span>
                   </div>
                 </div>
+              {%- when 'trust_markers' -%}
+                <div
+                  class="product__trust-markers"
+                  {{ block.shopify_attributes }}
+                  style="--trust-markers-bg: {{ block.settings.background_color }}; --trust-markers-icon: {{ block.settings.icon_color }}; --trust-markers-title: {{ block.settings.title_color }}; --trust-markers-subtext: {{ block.settings.subtext_color }};"
+                >
+                  <div class="trust-markers__container">
+                    <div class="trust-markers__list">
+                      {%- for i in (1..3) -%}
+                        {%- assign icon_key = 'icon_' | append: i -%}
+                        {%- assign title_key = 'title_' | append: i -%}
+                        {%- assign subtext_key = 'subtext_' | append: i -%}
+                        {%- assign marker_title = block.settings[title_key] -%}
+                        {%- if marker_title != blank -%}
+                          <div class="trust-markers__item">
+                            <span class="trust-markers__icon" aria-hidden="true">
+                              {%- render 'trust-marker-icon', icon: block.settings[icon_key] -%}
+                            </span>
+                            <div class="trust-markers__content">
+                              <span class="trust-markers__title">{{ marker_title | escape }}</span>
+                              {%- unless block.settings[subtext_key] == blank -%}
+                                <span class="trust-markers__subtext">{{ block.settings[subtext_key] | escape }}</span>
+                              {%- endunless -%}
+                            </div>
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
               {%- when 'inventory' -%}
                 <p
                   class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -1158,6 +1188,124 @@
           "id": "text_color",
           "label": "Text color",
           "default": "#b91c4a"
+        }
+      ]
+    },
+    {
+      "type": "trust_markers",
+      "name": "Trust markers",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#f8f6f3"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#5c4033"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#333333"
+        },
+        {
+          "type": "color",
+          "id": "subtext_color",
+          "label": "Subtext color",
+          "default": "#6b6b6b"
+        },
+        {
+          "type": "header",
+          "content": "Marker 1"
+        },
+        {
+          "type": "select",
+          "id": "icon_1",
+          "label": "Icon",
+          "options": [
+            { "value": "lock", "label": "Secure / Lock" },
+            { "value": "return", "label": "Returns" },
+            { "value": "heart", "label": "Heart / Quality" },
+            { "value": "truck", "label": "Shipping / Truck" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "lock"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Title",
+          "default": "Secure Checkout"
+        },
+        {
+          "type": "text",
+          "id": "subtext_1",
+          "label": "Subtext",
+          "default": "ENCRYPTED PAYMENTS"
+        },
+        {
+          "type": "header",
+          "content": "Marker 2"
+        },
+        {
+          "type": "select",
+          "id": "icon_2",
+          "label": "Icon",
+          "options": [
+            { "value": "lock", "label": "Secure / Lock" },
+            { "value": "return", "label": "Returns" },
+            { "value": "heart", "label": "Heart / Quality" },
+            { "value": "truck", "label": "Shipping / Truck" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "return"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Title",
+          "default": "7-Day Easy Returns"
+        },
+        {
+          "type": "text",
+          "id": "subtext_2",
+          "label": "Subtext",
+          "default": "NO QUESTIONS ASKED"
+        },
+        {
+          "type": "header",
+          "content": "Marker 3"
+        },
+        {
+          "type": "select",
+          "id": "icon_3",
+          "label": "Icon",
+          "options": [
+            { "value": "lock", "label": "Secure / Lock" },
+            { "value": "return", "label": "Returns" },
+            { "value": "heart", "label": "Heart / Quality" },
+            { "value": "truck", "label": "Shipping / Truck" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "heart"
+        },
+        {
+          "type": "text",
+          "id": "title_3",
+          "label": "Title",
+          "default": "Handcrafted Quality"
+        },
+        {
+          "type": "text",
+          "id": "subtext_3",
+          "label": "Subtext",
+          "default": "ARTISANAL EXCELLENCE"
         }
       ]
     },
