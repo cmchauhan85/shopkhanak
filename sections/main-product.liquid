@@ -168,7 +168,7 @@
                     </span>
                     <span class="product__loved-badge__text">
                       {%- if block.settings.prefix != blank -%}{{ block.settings.prefix | escape }}{% endif %}
-                      <strong class="product__loved-badge__count">{{ block.settings.count | escape }}</strong>
+                      <strong class="product__loved-badge__count">{{ block.settings.loved_count | escape }}</strong>
                       {%- if block.settings.suffix != blank -%} {{ block.settings.suffix | escape }}{% endif %}
                     </span>
                   </div>
@@ -182,7 +182,7 @@
                     </span>
                     <span class="product__loved-badge__text">
                       {%- if block.settings.prefix != blank -%}{{ block.settings.prefix | escape }}{% endif %}
-                      <strong class="product__loved-badge__count">{{ block.settings.count | escape }}</strong>
+                      <strong class="product__loved-badge__count">{{ block.settings.loved_count | escape }}</strong>
                       {%- if block.settings.suffix != blank -%} {{ block.settings.suffix | escape }}{% endif %}
                     </span>
                   </div>
@@ -1033,7 +1033,7 @@
         },
         {
           "type": "text",
-          "id": "count",
+          "id": "loved_count",
           "label": "Count or number",
           "default": "1000+"
         },
