@@ -223,10 +223,10 @@
                   {%- assign size_name = variant.title | default: 'this size' -%}
                   {%- if qty <= block.settings.almost_gone_threshold -%}
                     {%- assign alert_title = block.settings.title_almost_gone -%}
-                    {%- assign alert_message = block.settings.message_almost_gone | replace: '{{count}}', qty | replace: '{{size}}', size_name -%}
+                    {%- assign alert_message = block.settings.message_almost_gone | replace: '[[count]]', qty | replace: '[[size]]', size_name -%}
                   {%- else -%}
                     {%- assign alert_title = block.settings.title_selling_fast -%}
-                    {%- assign alert_message = block.settings.message_selling_fast | replace: '{{count}}', qty | replace: '{{size}}', size_name -%}
+                    {%- assign alert_message = block.settings.message_selling_fast | replace: '[[count]]', qty | replace: '[[size]]', size_name -%}
                   {%- endif -%}
                 {%- endif -%}
                 <div
