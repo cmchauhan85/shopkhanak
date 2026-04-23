@@ -19,22 +19,29 @@
             "text_style": "uppercase"
           }
         },
+        "share_qx4GzD": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
         "title": {
           "type": "title",
-          "settings": {}
-        },
-        "judge_me_reviews_preview_badge_EJ96rE": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         },
         "price": {
           "type": "price",
           "settings": {}
         },
+        "judge_me_reviews_preview_badge_EJ96rE": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
         "loved_badge": {
           "type": "loved_badge",
           "settings": {
             "prefix": "Loved by",
+            "loved_count": "1000+",
             "suffix": "shoppers"
           }
         },
@@ -48,6 +55,10 @@
             "background_color": "#ffe4ec",
             "text_color": "#b91c4a"
           }
+        },
+        "linkedoption_app_block_RBrqcF": {
+          "type": "shopify://apps/linkedoption/blocks/app-block/564f3d71-fe5e-48d7-a0de-284b76666f1e",
+          "settings": {}
         },
         "stock_alert": {
           "type": "stock_alert",
@@ -74,12 +85,6 @@
           "settings": {
             "picker_type": "button",
             "swatch_shape": "circle"
-          }
-        },
-        "share_qx4GzD": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
           }
         },
         "quantity_selector": {
@@ -115,10 +120,11 @@
         "vendor",
         "share_qx4GzD",
         "title",
-        "judge_me_reviews_preview_badge_EJ96rE",
         "price",
+        "judge_me_reviews_preview_badge_EJ96rE",
         "loved_badge",
         "coupon_badge",
+        "linkedoption_app_block_RBrqcF",
         "stock_alert",
         "popup_yMPq7V",
         "variant_picker",
