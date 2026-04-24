@@ -69,6 +69,45 @@
         "include_margins": true
       }
     },
+    "177701008409dfa895": {
+      "type": "apps",
+      "blocks": {
+        "clevercat_shoppable_videos_video_test_GhC6nN": {
+          "type": "shopify://apps/clevercat-shoppable-videos/blocks/video-test/c6c5ac04-c104-4f3f-bc25-34e273b6096a",
+          "settings": {
+            "carousel_metaobject": "home_page_carousel",
+            "carousel_title": "Watch & Buy",
+            "carousel_layout": "classic",
+            "grid_layout_type": "simple",
+            "slides_per_view": 5,
+            "slides_per_view_mobile": "2.5",
+            "cart_bottom_position": 6,
+            "show_product_under_video": true,
+            "show_buy_now_button": false,
+            "show_checkout_button": true,
+            "is_buy_now_enable": false,
+            "buy_now_button_color": "#000000",
+            "autoplay_speed_desktop": 3000,
+            "autoplay_speed_mobile": 3000,
+            "space_between_desktop": 20,
+            "space_between_mobile": 10,
+            "padding_left_desktop": 10,
+            "padding_right_desktop": 10,
+            "product_position": "above",
+            "product_card_style": "default",
+            "carousel_id": "",
+            "enable_custom_css": true,
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "clevercat_shoppable_videos_video_test_GhC6nN"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "featured_collection_iM6JLX": {
       "type": "featured-collection",
       "custom_css": [
@@ -215,6 +254,7 @@
     "slideshow_LjgMyA",
     "image_banner_BdrExt",
     "173973215265944cee",
+    "177701008409dfa895",
     "featured_collection_iM6JLX",
     "featured_collection_YfYtBh",
     "featured_collection_cMhVmR",
