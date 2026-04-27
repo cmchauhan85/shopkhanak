@@ -1,0 +1,59 @@
+{% comment %}
+  Renders a mobile-only floating buy bar (qty, Add to cart, Buy now).
+  Inputs target the same product form id as the main buy buttons block,
+  so submission flows through product-form.js.
+
+  Accepts:
+  - product: {Object}
+  - product_form_id: {String}
+  - section_id: {String}
+{% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<floating-buy-bar
+  class="floating-buy-bar small-show"
+  data-target="#ProductSubmitButton-{{ section_id }}"
+  data-section-id="{{ section_id }}"
+  hidden
+>
+  <div class="floating-buy-bar__inner">
+    <div class="floating-buy-bar__qty">
+      <button class="floating-buy-bar__qty-btn" type="button" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}">
+        {% render 'icon-minus' %}
+      </button>
+      <input
+        class="floating-buy-bar__qty-input"
+        type="number"
+        name="quantity"
+        min="1"
+        value="1"
+        aria-label="{{ 'products.product.quantity.label' | t }}"
+      >
+      <button class="floating-buy-bar__qty-btn" type="button" name="plus" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}">
+        {% render 'icon-plus' %}
+      </button>
+    </div>
+    <button
+      type="button"
+      class="floating-buy-bar__add-to-cart button button--secondary"
+      data-action="add-to-cart"
+      {% unless current_variant.available %}disabled{% endunless %}
+    >
+      {%- if current_variant.available -%}
+        {{ 'products.product.add_to_cart' | t }}
+      {%- else -%}
+        {{ 'products.product.sold_out' | t }}
+      {%- endif -%}
+    </button>
+    <button
+      type="button"
+      class="floating-buy-bar__buy-now button button--primary"
+      data-action="buy-now"
+      {% unless current_variant.available %}disabled{% endunless %}
+    >
+      <span>{{ 'products.product.buy_it_now' | t | default: 'Buy it now' }}</span>
+      <span class="floating-buy-bar__arrow" aria-hidden="true">{% render 'icon-arrow' %}</span>
+    </button>
+  </div>
+</floating-buy-bar>

@@ -1,0 +1,40 @@
+{% comment %}
+  Renders a breadcrumb trail for the product page.
+
+  Usage:
+    {% render 'breadcrumbs' %}
+
+  Picks the most relevant collection (the one the customer arrived from
+  via collection.handle param if present, else product.collections.first).
+{% endcomment %}
+
+{%- liquid
+  assign crumb_collection = nil
+  if collection and collection.handle != blank
+    assign crumb_collection = collection
+  elsif product.collections.size > 0
+    assign crumb_collection = product.collections.first
+  endif
+-%}
+
+<nav class="product__breadcrumbs" aria-label="{{ 'accessibility.breadcrumbs' | t | default: 'Breadcrumbs' }}">
+  <ol class="product__breadcrumbs__list">
+    <li class="product__breadcrumbs__item">
+      <a href="{{ routes.root_url }}" class="product__breadcrumbs__link">
+        {{- 'general.breadcrumbs.home' | t | default: 'Home' -}}
+      </a>
+      <span class="product__breadcrumbs__separator" aria-hidden="true">/</span>
+    </li>
+    {%- if crumb_collection -%}
+      <li class="product__breadcrumbs__item">
+        <a href="{{ crumb_collection.url }}" class="product__breadcrumbs__link">
+          {{- crumb_collection.title | escape -}}
+        </a>
+        <span class="product__breadcrumbs__separator" aria-hidden="true">/</span>
+      </li>
+    {%- endif -%}
+    <li class="product__breadcrumbs__item product__breadcrumbs__item--current" aria-current="page">
+      {{- product.title | escape -}}
+    </li>
+  </ol>
+</nav>

@@ -1,0 +1,34 @@
+{% comment %}
+  Renders best-seller pill (top-left) and wishlist heart (top-right) overlaid on the gallery.
+
+  Accepts:
+  - product: {Object} Product liquid object
+  - block: {Object} The image_overlays block (provides settings)
+
+  Drives "Best Seller" visibility from either:
+    - block.settings.always_show (forced)
+    - product.metafields.custom.best_seller (boolean)
+    - product tag "best-seller"
+{% endcomment %}
+
+{%- liquid
+  assign show_best_seller = false
+  if block.settings.always_show
+    assign show_best_seller = true
+  elsif product.metafields.custom.best_seller == true
+    assign show_best_seller = true
+  elsif product.tags contains 'best-seller'
+    assign show_best_seller = true
+  endif
+-%}
+
+<div class="product__media-overlays" {{ block.shopify_attributes }}>
+  {%- if show_best_seller -%}
+    <span class="product__media-pill product__media-pill--best-seller">
+      {{- block.settings.label | default: 'BEST SELLER' | escape -}}
+    </span>
+  {%- endif -%}
+  {%- if block.settings.show_wishlist -%}
+    {% render 'wishlist-button', product: product %}
+  {%- endif -%}
+</div>

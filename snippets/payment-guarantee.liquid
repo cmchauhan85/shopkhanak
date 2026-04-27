@@ -1,0 +1,43 @@
+{% comment %}
+  Renders a "Secure Checkout Guaranteed" card with a row of payment-method icons.
+
+  Accepts:
+  - block: {Object} payment_guarantee block (provides settings)
+
+  Settings:
+  - heading (text)
+  - subtext (text)
+  - methods (text) — comma-separated list of method codes (upi, gpay, visa, mastercard, rupay, paypal, emi, amex, applepay, etc.)
+{% endcomment %}
+
+{%- liquid
+  assign heading = block.settings.heading | default: 'Secure Checkout Guaranteed'
+  assign subtext = block.settings.subtext | default: 'Encrypted payments • Trusted payment partners'
+  assign raw_methods = block.settings.methods | default: 'upi,gpay,visa,mastercard,rupay,paypal,emi'
+  assign methods = raw_methods | downcase | replace: ' ', '' | split: ','
+-%}
+
+<div class="product__payment-guarantee" {{ block.shopify_attributes }}>
+  <div class="product__payment-guarantee__head">
+    <span class="product__payment-guarantee__shield" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3l8 3v6c0 4.5-3.4 8.5-8 9-4.6-.5-8-4.5-8-9V6l8-3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    <div class="product__payment-guarantee__text">
+      <span class="product__payment-guarantee__heading">{{ heading | escape }}</span>
+      <span class="product__payment-guarantee__subtext">{{ subtext | escape }}</span>
+    </div>
+  </div>
+  <ul class="product__payment-guarantee__methods" role="list">
+    {%- for method in methods -%}
+      {%- assign code = method | strip -%}
+      {%- if code != blank -%}
+        <li class="product__payment-method product__payment-method--{{ code | handle }}">
+          <span class="product__payment-method__label">{{ code | upcase }}</span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>

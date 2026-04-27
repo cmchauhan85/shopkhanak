@@ -4,6 +4,8 @@
   data-section="{{ section.id }}"
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'section-trust-markers.css' | asset_url | stylesheet_tag }}
+  {{ 'component-floating-buy-bar.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -34,6 +36,7 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -69,6 +72,10 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
+        {%- assign overlays_block = section.blocks | where: 'type', 'image_overlays' | first -%}
+        {%- if overlays_block -%}
+          {% render 'product-image-overlays', product: product, block: overlays_block %}
+        {%- endif -%}
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -90,6 +97,16 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
+              {%- when 'breadcrumbs' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'breadcrumbs' %}
+                </div>
+              {%- when 'delivery_estimation' -%}
+                {% render 'delivery-estimation', block: block %}
+              {%- when 'payment_guarantee' -%}
+                {% render 'payment-guarantee', block: block %}
+              {%- when 'image_overlays' -%}
+                {% comment %} Rendered inside the gallery wrapper instead — see product-media-gallery {% endcomment %}
               {%- when 'text' -%}
                 {%- if forloop.index < section.blocks.size -%}
                   {%- assign next_block = section.blocks[forloop.index] -%}
@@ -857,12 +874,19 @@
       {%- if section.settings.media_position == 'right' -%}
         {% comment %} Duplicate gallery to display after product content on tablet/desktop breakpoint {% endcomment %}
         <div class="grid__item product__media-wrapper small-hide">
+          {%- if overlays_block -%}
+            {% render 'product-image-overlays', product: product, block: overlays_block %}
+          {%- endif -%}
           {% render 'product-media-gallery', variant_images: variant_images, is_duplicate: true %}
         </div>
       {%- endif -%}
     </div>
 
     {% render 'product-media-modal', variant_images: variant_images %}
+
+    {%- comment -%} Mobile-only floating buy bar — JS hides on desktop and toggles on scroll {%- endcomment -%}
+    {% render 'floating-buy-bar', product: product, product_form_id: product_form_id, section_id: section.id %}
+    <script src="{{ 'floating-buy-bar.js' | asset_url }}" defer="defer"></script>
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
@@ -1009,8 +1033,127 @@
       "type": "@app"
     },
     {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "limit": 1
+    },
+    {
+      "type": "image_overlays",
+      "name": "Image overlays",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "always_show",
+          "label": "Always show 'Best Seller' pill",
+          "default": false,
+          "info": "When off, the pill only appears for products tagged 'best-seller' or with metafield custom.best_seller=true."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Best seller label",
+          "default": "BEST SELLER"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_wishlist",
+          "label": "Show wishlist heart",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "delivery_estimation",
+      "name": "Delivery estimation",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "dispatch_days",
+          "label": "Days until dispatch",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "default": 1,
+          "unit": "d"
+        },
+        {
+          "type": "range",
+          "id": "delivery_days",
+          "label": "Days until delivery",
+          "min": 1,
+          "max": 60,
+          "step": 1,
+          "default": 5,
+          "unit": "d"
+        },
+        {
+          "type": "text",
+          "id": "label_order_now",
+          "label": "Step 1 label",
+          "default": "Order Now"
+        },
+        {
+          "type": "text",
+          "id": "sub_order_now",
+          "label": "Step 1 subtext",
+          "default": "TODAY"
+        },
+        {
+          "type": "text",
+          "id": "label_shipping",
+          "label": "Step 2 label",
+          "default": "Shipping"
+        },
+        {
+          "type": "text",
+          "id": "sub_shipping",
+          "label": "Step 2 subtext prefix",
+          "default": "BY"
+        },
+        {
+          "type": "text",
+          "id": "label_arrival",
+          "label": "Step 3 label",
+          "default": "At your Door"
+        },
+        {
+          "type": "text",
+          "id": "sub_arrival",
+          "label": "Step 3 subtext prefix",
+          "default": "BY"
+        }
+      ]
+    },
+    {
+      "type": "payment_guarantee",
+      "name": "Payment guarantee",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Secure Checkout Guaranteed"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Encrypted payments • Trusted payment partners"
+        },
+        {
+          "type": "text",
+          "id": "methods",
+          "label": "Payment methods (comma-separated)",
+          "default": "upi,gpay,visa,mastercard,rupay,paypal,emi"
+        }
+      ]
+    },
+    {
       "type": "text",
-      "name": "t:sections.main-product.blocks.text.name",
+      "name": "Text",
       "settings": [
         {
           "type": "inline_richtext",

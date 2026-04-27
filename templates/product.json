@@ -12,6 +12,18 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "breadcrumbs": {
+          "type": "breadcrumbs",
+          "settings": {}
+        },
+        "image_overlays": {
+          "type": "image_overlays",
+          "settings": {
+            "always_show": false,
+            "label": "BEST SELLER",
+            "show_wishlist": true
+          }
+        },
         "vendor": {
           "type": "text",
           "settings": {
@@ -44,6 +56,10 @@
             "loved_count": "1000+",
             "suffix": "shoppers"
           }
+        },
+        "judge_me_reviews_preview_badge_EJ96rE": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         },
         "coupon_badge": {
           "type": "coupon_badge",
@@ -87,6 +103,37 @@
             "swatch_shape": "circle"
           }
         },
+        "trust_markers": {
+          "type": "trust_markers",
+          "settings": {
+            "background_color": "#f8f6f3",
+            "icon_color": "#5b1230",
+            "title_color": "#333333",
+            "subtext_color": "#6b6b6b",
+            "icon_1": "lock",
+            "title_1": "Secure Checkout",
+            "subtext_1": "ENCRYPTED PAYMENTS",
+            "icon_2": "return",
+            "title_2": "7-Day Easy Returns",
+            "subtext_2": "NO QUESTIONS ASKED",
+            "icon_3": "heart",
+            "title_3": "Handcrafted Quality",
+            "subtext_3": "ARTISANAL EXCELLENCE"
+          }
+        },
+        "delivery_estimation": {
+          "type": "delivery_estimation",
+          "settings": {
+            "dispatch_days": 1,
+            "delivery_days": 5,
+            "label_order_now": "Order Now",
+            "sub_order_now": "TODAY",
+            "label_shipping": "Shipping",
+            "sub_shipping": "BY",
+            "label_arrival": "At your Door",
+            "sub_arrival": "BY"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -98,41 +145,79 @@
             "show_gift_card_recipient": true
           }
         },
+        "payment_guarantee": {
+          "type": "payment_guarantee",
+          "settings": {
+            "heading": "Secure Checkout Guaranteed",
+            "subtext": "Encrypted payments • Trusted payment partners",
+            "methods": "upi,gpay,visa,mastercard,rupay,paypal,emi"
+          }
+        },
         "avada_order_limits_app_block_EcFRxM": {
           "type": "shopify://apps/avada-order-limits/blocks/app-block/d3021427-4f7b-49c8-8963-29d1d52b8956",
           "settings": {}
         },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "collapsible_tab_QPrHf3": {
+        "tab_description": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "OFFERS",
-            "icon": "none",
+            "heading": "Product Description",
+            "icon": "leaf",
+            "content": "",
+            "page": ""
+          }
+        },
+        "tab_care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product Care",
+            "icon": "washing",
+            "content": "<p>Dry clean only. Store in a cool, dry place. Iron on low heat.</p>",
+            "page": ""
+          }
+        },
+        "tab_shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "icon": "truck",
+            "content": "<p>Dispatched within 24 hours. 7-day easy returns. Refunds processed within 5-7 working days.</p>",
+            "page": ""
+          }
+        },
+        "tab_offers": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Offers",
+            "icon": "price_tag",
             "content": "<p>BUY 1 GET 10% OFF</p><p>BUY 2 GET 15% OFF</p><p>BUY 3 GET 20% OFF</p>",
             "page": ""
           }
         }
       },
       "block_order": [
+        "breadcrumbs",
+        "image_overlays",
         "vendor",
         "share_qx4GzD",
         "title",
         "price",
-        "judge_me_reviews_preview_badge_EJ96rE",
         "loved_badge",
+        "judge_me_reviews_preview_badge_EJ96rE",
         "coupon_badge",
         "linkedoption_app_block_RBrqcF",
         "stock_alert",
         "popup_yMPq7V",
         "variant_picker",
+        "trust_markers",
+        "delivery_estimation",
         "quantity_selector",
         "buy_buttons",
+        "payment_guarantee",
         "avada_order_limits_app_block_EcFRxM",
-        "description",
-        "collapsible_tab_QPrHf3"
+        "tab_description",
+        "tab_care",
+        "tab_shipping",
+        "tab_offers"
       ],
       "custom_css": [],
       "settings": {
@@ -151,50 +236,48 @@
         "padding_bottom": 12
       }
     },
-    "trust-markers": {
-      "type": "trust-markers",
+    "behind-the-seams": {
+      "type": "behind-the-seams",
       "blocks": {
-        "secure_checkout": {
-          "type": "trust_marker",
+        "feature_organza": {
+          "type": "feature",
           "settings": {
-            "icon": "lock",
-            "title": "Secure Checkout",
-            "subtext": "ENCRYPTED PAYMENTS"
+            "title": "100% Pure Organza",
+            "description": "<p>Lightweight and airy texture, creating an ethereal look perfect for summer weddings.</p>"
           }
         },
-        "easy_returns": {
-          "type": "trust_marker",
+        "feature_handpainted": {
+          "type": "feature",
           "settings": {
-            "icon": "return",
-            "title": "7-Day Easy Returns",
-            "subtext": "NO QUESTIONS ASKED"
+            "title": "Hand-Painted Art",
+            "description": "<p>Delicate sunflowers scattered across the drape, each unique and imperfectly perfect.</p>"
           }
         },
-        "handcrafted": {
-          "type": "trust_marker",
+        "feature_eco": {
+          "type": "feature",
           "settings": {
-            "icon": "heart",
-            "title": "Handcrafted Quality",
-            "subtext": "ARTISANAL EXCELLENCE"
+            "title": "Eco-Conscious",
+            "description": "<p>We believe in slow fashion. Crafted responsibly with minimal waste and ethical wages.</p>"
           }
         }
       },
       "block_order": [
-        "secure_checkout",
-        "easy_returns",
-        "handcrafted"
+        "feature_organza",
+        "feature_handpainted",
+        "feature_eco"
       ],
       "settings": {
-        "background_color": "#f8f6f3",
-        "icon_color": "#5c4033",
-        "title_color": "#333333",
-        "subtext_color": "#6b6b6b",
-        "padding_top": 24,
-        "padding_bottom": 24
+        "color_scheme": "scheme-1",
+        "background_color": "#fdfaf6",
+        "eyebrow": "BEHIND THE SEAMS",
+        "heading": "Artisan Hand-Painting",
+        "intro": "<p>Every stroke is painted by hand by our master artisans in Jaipur, taking over 48 hours to complete a single saree. We use eco-friendly dyes on the finest pure silk organza.</p>",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
-    "17677711364db48165": {
-      "type": "apps",
+    "customer-stories": {
+      "type": "customer-stories",
       "blocks": {
         "judge_me_reviews_featured_carousel_6wmEBg": {
           "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
@@ -207,18 +290,23 @@
         "judge_me_reviews_featured_carousel_6wmEBg"
       ],
       "settings": {
-        "include_margins": true
+        "color_scheme": "scheme-1",
+        "background_color": "#f4eee9",
+        "heading": "Customer Stories",
+        "summary_text": "",
+        "write_review_url": "/pages/write-a-review",
+        "write_review_label": "Write a Review"
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
-        "heading": "You may also like",
+        "heading": "You May Also Like",
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
-        "image_ratio": "square",
+        "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
@@ -237,8 +325,8 @@
   },
   "order": [
     "main",
-    "trust-markers",
-    "17677711364db48165",
+    "behind-the-seams",
+    "customer-stories",
     "related-products",
     "1767771133bf0dc4ca"
   ]

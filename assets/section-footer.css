@@ -514,3 +514,160 @@
     }
   }
 }
+
+/* ==========================================================================
+   Khanak brand footer skin (Apr 2026)
+   - Pink-cream brand surface, hairline column dividers, consistent type
+   - Newsletter sits as the 4th column on desktop instead of full width
+   ========================================================================== */
+
+.footer {
+  background: #f7e6e2;
+  color: #5b1230;
+}
+
+.footer__content-top.page-width {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .footer__content-top.page-width {
+    grid-template-columns: 1.2fr 1fr 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.footer__content-top .footer__blocks-wrapper {
+  display: contents;
+}
+
+.footer__content-top .footer-block {
+  padding: 0;
+}
+
+.footer-block__heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(91, 18, 48, 0.85);
+  margin: 0 0 1.4rem;
+  font-weight: 600;
+}
+
+.footer-block--menu .list-menu__item--link,
+.footer-block__details-content .link {
+  color: #5b1230;
+  font-size: 1.4rem;
+  line-height: 2.1;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.footer-block--menu .list-menu__item--link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.footer-block__brand-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  align-items: flex-start;
+}
+
+.footer-block__brand-info .footer-block__heading {
+  font-size: 1.6rem;
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.footer-block__brand-info .rte {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: rgba(91, 18, 48, 0.8);
+}
+
+.footer-block__brand-info .footer__list-social {
+  display: inline-flex;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-block__brand-info .footer__list-social .list-social__item .list-social__link {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  color: #5b1230;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-block__brand-info .footer__list-social .list-social__item .list-social__link:hover {
+  background: #ffffff;
+}
+
+.footer-block--newsletter {
+  margin-top: 0;
+}
+
+.footer-block--newsletter .footer-block__heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.footer-block__newsletter,
+.footer-block--newsletter .footer-block__newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: stretch;
+  text-align: left;
+  max-width: 32rem;
+}
+
+.footer-block--newsletter .newsletter-form__field-wrapper .field {
+  border-bottom: 1px solid rgba(91, 18, 48, 0.4);
+  background: transparent;
+}
+
+.footer-block--newsletter .newsletter-form__field-wrapper .field__input {
+  background: transparent;
+  border: 0;
+  font-size: 1.3rem;
+  color: #5b1230;
+  padding: 1rem 4rem 1rem 0;
+}
+
+.footer-block--newsletter .newsletter-form__field-wrapper .field__label {
+  color: rgba(91, 18, 48, 0.7);
+}
+
+.footer-block--newsletter .newsletter-form__button {
+  color: #5b1230;
+}
+
+.footer__content-bottom {
+  border-top: 1px solid rgba(91, 18, 48, 0.18);
+  margin-top: 1.6rem;
+}
+
+.footer__copyright,
+.footer__copyright .copyright__content,
+.footer__copyright a,
+.footer__content-bottom .policies a {
+  color: rgba(91, 18, 48, 0.75);
+}
+
+.footer__list-payment .list-payment__item .icon {
+  filter: none;
+}
+

@@ -1,0 +1,105 @@
+.floating-buy-bar {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  background: rgb(var(--color-background));
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.06);
+  padding: 0.8rem 1.2rem calc(0.8rem + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+}
+
+.floating-buy-bar[hidden] {
+  display: none;
+}
+
+.floating-buy-bar.is-visible {
+  display: block;
+  transform: translateY(0);
+}
+
+@media screen and (min-width: 750px) {
+  .floating-buy-bar,
+  .floating-buy-bar.is-visible {
+    display: none !important;
+  }
+}
+
+.floating-buy-bar__inner {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.floating-buy-bar__qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(var(--color-foreground), 0.18);
+  border-radius: 0.4rem;
+  height: 4.4rem;
+  overflow: hidden;
+}
+
+.floating-buy-bar__qty-btn {
+  width: 3.2rem;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgb(var(--color-foreground));
+}
+
+.floating-buy-bar__qty-btn .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.floating-buy-bar__qty-input {
+  width: 3.6rem;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  text-align: center;
+  font-size: 1.4rem;
+  -moz-appearance: textfield;
+}
+
+.floating-buy-bar__qty-input::-webkit-outer-spin-button,
+.floating-buy-bar__qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.floating-buy-bar__add-to-cart,
+.floating-buy-bar__buy-now {
+  height: 4.4rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0 1.2rem;
+}
+
+.floating-buy-bar__buy-now .floating-buy-bar__arrow {
+  display: inline-flex;
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.floating-buy-bar__buy-now .floating-buy-bar__arrow svg {
+  width: 100%;
+  height: 100%;
+}

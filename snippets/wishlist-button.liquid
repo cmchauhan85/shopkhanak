@@ -1,0 +1,25 @@
+{% comment %}
+  Renders a heart wishlist toggle button.
+  State persists in localStorage via assets/wishlist.js, keyed by product handle.
+
+  Accepts:
+  - product: {Object} Product liquid object
+
+  Usage:
+    {% render 'wishlist-button', product: product %}
+{% endcomment %}
+
+<button
+  type="button"
+  class="product__wishlist-button"
+  data-wishlist-button
+  data-handle="{{ product.handle }}"
+  aria-pressed="false"
+  aria-label="{{ 'products.product.add_to_wishlist' | t | default: 'Add to wishlist' }}"
+>
+  <span class="product__wishlist-button__icon" aria-hidden="true">
+    <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 16.5L8.55 15.18C3.4 10.51 0 7.42 0 3.6C0 0.51 2.42 -1.9 5.5 -1.9C7.24 -1.9 8.91 -1.09 10 0.18C11.09 -1.09 12.76 -1.9 14.5 -1.9C17.58 -1.9 20 0.51 20 3.6C20 7.42 16.6 10.51 11.45 15.19L10 16.5Z" transform="translate(0, 1.9)" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    </svg>
+  </span>
+</button>

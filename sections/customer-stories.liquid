@@ -1,0 +1,106 @@
+{% comment %}
+  Customer Stories — wraps the Judge.me featured carousel (added as an @app block)
+  with a branded header (title + rating summary + WRITE A REVIEW button).
+  CSS lives in section-main-product.css (.section-customer-stories*).
+{% endcomment %}
+
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value | default: nil
+  assign rating_count = product.metafields.reviews.rating_count | default: 0
+-%}
+
+<section
+  class="section-customer-stories color-{{ section.settings.color_scheme }} gradient"
+  style="background: {{ section.settings.background_color | default: '#f4eee9' }};"
+>
+  <div class="page-width">
+    <div class="section-customer-stories__head">
+      <div class="section-customer-stories__head-left">
+        <h2 class="section-customer-stories__title">{{ section.settings.heading | default: 'Customer Stories' | escape }}</h2>
+        {%- if rating != blank or section.settings.summary_text != blank -%}
+          <p class="section-customer-stories__summary">
+            {%- if section.settings.summary_text != blank -%}
+              {{ section.settings.summary_text | escape }}
+            {%- elsif rating != blank -%}
+              {{ rating.rating }} out of {{ rating.scale_max }} based on {{ rating_count }} reviews
+            {%- endif -%}
+          </p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.write_review_url != blank -%}
+        <a href="{{ section.settings.write_review_url }}" class="section-customer-stories__write">
+          {{ section.settings.write_review_label | default: 'Write a Review' | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="section-customer-stories__body">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Stories",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f4eee9"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Stories"
+    },
+    {
+      "type": "text",
+      "id": "summary_text",
+      "label": "Summary text (overrides metafield)",
+      "info": "Leave blank to render rating from product reviews metafield."
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write a review URL"
+    },
+    {
+      "type": "text",
+      "id": "write_review_label",
+      "label": "Write a review button label",
+      "default": "Write a Review"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Stories"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}

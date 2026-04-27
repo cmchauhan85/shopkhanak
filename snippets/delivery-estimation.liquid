@@ -1,0 +1,69 @@
+{% comment %}
+  Renders a 3-step delivery timeline (Order Now → Shipping → At Your Door).
+  Dates computed from now + dispatch/delivery offsets.
+
+  Accepts:
+  - block: {Object} delivery_estimation block (provides settings)
+
+  Settings on block:
+  - dispatch_days (range): days from order to shipment
+  - delivery_days (range): days from order to delivery
+  - label_order_now, label_shipping, label_arrival (text)
+  - sub_order_now, sub_shipping, sub_arrival (text — overrides if set)
+{% endcomment %}
+
+{%- liquid
+  assign now_seconds = 'now' | date: '%s' | times: 1
+  assign one_day = 86400
+
+  assign dispatch_days = block.settings.dispatch_days | default: 1
+  assign delivery_days = block.settings.delivery_days | default: 5
+
+  assign ship_seconds = dispatch_days | times: one_day | plus: now_seconds
+  assign arrival_seconds = delivery_days | times: one_day | plus: now_seconds
+
+  assign date_format = '%d %b'
+  assign ship_date = ship_seconds | date: date_format | upcase
+  assign arrival_date = arrival_seconds | date: date_format | upcase
+
+  assign sub_order_now = block.settings.sub_order_now | default: 'TODAY'
+  assign sub_shipping = block.settings.sub_shipping | default: 'BY'
+  assign sub_arrival = block.settings.sub_arrival | default: 'BY'
+-%}
+
+<div class="product__delivery" {{ block.shopify_attributes }}>
+  <ol class="product__delivery__list">
+    <li class="product__delivery__step">
+      <span class="product__delivery__icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 5h2l3 12h11l3-9H7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9" cy="20" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="18" cy="20" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="product__delivery__label">{{ block.settings.label_order_now | default: 'Order Now' | escape }}</span>
+      <span class="product__delivery__sub">{{ sub_order_now | escape }}</span>
+    </li>
+    <li class="product__delivery__step">
+      <span class="product__delivery__icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 7h11v8H3zM14 10h4l3 3v2h-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="7" cy="17" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="17" cy="17" r="1.5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="product__delivery__label">{{ block.settings.label_shipping | default: 'Shipping' | escape }}</span>
+      <span class="product__delivery__sub">{{ sub_shipping | escape }} {{ ship_date }}</span>
+    </li>
+    <li class="product__delivery__step">
+      <span class="product__delivery__icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="product__delivery__label">{{ block.settings.label_arrival | default: 'At your Door' | escape }}</span>
+      <span class="product__delivery__sub">{{ sub_arrival | escape }} {{ arrival_date }}</span>
+    </li>
+  </ol>
+</div>

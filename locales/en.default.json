@@ -65,6 +65,9 @@
       "next_slide": "Slide right",
       "previous_slide": "Slide left",
       "name": "Slider"
+    },
+    "breadcrumbs": {
+      "home": "Home"
     }
   },
   "newsletter": {
@@ -88,7 +91,8 @@
     "total_reviews": "total reviews",
     "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
     "collapsible_content_title": "Collapsible content",
-    "complementary_products": "Complementary products"
+    "complementary_products": "Complementary products",
+    "breadcrumbs": "Breadcrumbs"
   },
   "blogs": {
     "article": {
@@ -117,6 +121,8 @@
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
+      "add_to_wishlist": "Add to wishlist",
+      "buy_it_now": "Buy it now",
       "choose_options": "Choose options",
       "choose_product_options": "Choose options for {{ product_name }}",
       "description": "Description",
