@@ -45,10 +45,6 @@
           "type": "price",
           "settings": {}
         },
-        "judge_me_reviews_preview_badge_EJ96rE": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        },
         "loved_badge": {
           "type": "loved_badge",
           "settings": {
@@ -171,7 +167,7 @@
           "settings": {
             "heading": "Product Care",
             "icon": "washing",
-            "content": "<p>Dry clean only. Store in a cool, dry place. Iron on low heat.</p>",
+            "content": "<p>Easy wash only. Store in a cool, dry place. Iron on low heat.</p>",
             "page": ""
           }
         },
@@ -180,16 +176,7 @@
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
-            "content": "<p>Dispatched within 24 hours. 7-day easy returns. Refunds processed within 5-7 working days.</p>",
-            "page": ""
-          }
-        },
-        "tab_offers": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "Offers",
-            "icon": "price_tag",
-            "content": "<p>BUY 1 GET 10% OFF</p><p>BUY 2 GET 15% OFF</p><p>BUY 3 GET 20% OFF</p>",
+            "content": "<p>Dispatched within 24 hours. 7-day easy returns. Refunds processed within 5-7 working days. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">SHIPPING</a> | <a href=\"/policies/refund-policy\" title=\"Refund Policy\">RETURNS</a></p>",
             "page": ""
           }
         }
@@ -216,8 +203,7 @@
         "avada_order_limits_app_block_EcFRxM",
         "tab_description",
         "tab_care",
-        "tab_shipping",
-        "tab_offers"
+        "tab_shipping"
       ],
       "custom_css": [],
       "settings": {
