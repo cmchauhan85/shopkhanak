@@ -228,15 +228,15 @@
         "feature_organza": {
           "type": "feature",
           "settings": {
-            "title": "100% Pure Organza",
+            "title": "Premium Fabric",
             "description": "<p>Lightweight and airy texture, creating an ethereal look perfect for summer weddings.</p>"
           }
         },
         "feature_handpainted": {
           "type": "feature",
           "settings": {
-            "title": "Hand-Painted Art",
-            "description": "<p>Delicate sunflowers scattered across the drape, each unique and imperfectly perfect.</p>"
+            "title": "Customised Fits",
+            "description": "<p>We offer customisation services.</p>"
           }
         },
         "feature_eco": {
