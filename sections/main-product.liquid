@@ -376,6 +376,9 @@
                       {% render 'icon-caret' %}
                     </summary>
                     <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+                      {%- if block.settings.show_product_description -%}
+                        {{ product.description }}
+                      {%- endif -%}
                       {{ block.settings.content }}
                       {{ block.settings.page.content }}
                     </div>
@@ -1824,6 +1827,13 @@
           ],
           "default": "check_mark",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.icon.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_description",
+          "label": "Show product description",
+          "info": "Renders product.description above the content / page below.",
+          "default": false
         },
         {
           "type": "richtext",

@@ -159,6 +159,7 @@
           "settings": {
             "heading": "Product Description",
             "icon": "leaf",
+            "show_product_description": true,
             "content": "",
             "page": ""
           }

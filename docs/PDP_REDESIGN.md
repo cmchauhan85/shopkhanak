@@ -164,16 +164,17 @@ No settings.
 Each row has:
 - **Heading**
 - **Icon** — pick from the icon library (`leaf`, `washing`, `truck`, `price_tag`, etc.).
-- **Row content** — richtext.
-- **Page** — optional; if set, the page's content replaces the manual content.
+- **Show product description** *(checkbox, default off)* — when on, renders `product.description` (from **Products → [product] → Description**) at the top of the row. Use this for the Product Description tab.
+- **Row content** — richtext (rendered after the description if both are set).
+- **Page** — optional; if set, the page's content is appended below the row content.
 
 Defaults shipped:
-- Product Description (icon `leaf`, content empty → reads `product.description`).
+- Product Description (icon `leaf`, **Show product description = on**, content empty).
 - Product Care (icon `washing`, "Dry clean only…").
 - Shipping & Returns (icon `truck`, "Dispatched within 24 hours…").
 - Offers (icon `price_tag`, "BUY 1 GET 10% OFF…").
 
-> The first collapsible **Product Description** is intentionally blank — Shopify renders the standard `product.description` from the product admin into it via Liquid. Edit the description in **Products → [product] → Description**.
+> Edit the product copy in **Products → [product] → Description**. It appears in the Product Description collapsible automatically because that block has **Show product description** ticked.
 
 ### 3.3 Page-level sections (under the product info block)
 
