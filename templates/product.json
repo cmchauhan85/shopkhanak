@@ -169,6 +169,7 @@
           "settings": {
             "heading": "Product Care",
             "icon": "washing",
+            "show_product_description": false,
             "content": "<p>Easy wash only. Store in a cool, dry place. Iron on low heat.</p>",
             "page": ""
           }
@@ -178,6 +179,7 @@
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
+            "show_product_description": false,
             "content": "<p>Dispatched within 24 hours. 7-day easy returns. Refunds processed within 5-7 working days. <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">SHIPPING</a> | <a href=\"/policies/refund-policy\" title=\"Refund Policy\">RETURNS</a></p>",
             "page": ""
           }
@@ -270,7 +272,7 @@
         "judge_me_reviews_testimonials_carousel_eXVqCm": {
           "type": "shopify://apps/judge-me-reviews/blocks/testimonials_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "show_sample_reviews": true,
+            "show_sample_reviews": false,
             "reviews_selection": "product_reviews",
             "products": [],
             "star_rating": "all",
