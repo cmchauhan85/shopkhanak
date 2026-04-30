@@ -260,8 +260,8 @@
         "color_scheme": "scheme-4",
         "background_color": "#ede8d2",
         "eyebrow": "BEHIND THE SEAMS",
-        "heading": "Artisan Hand-Painting",
-        "intro": "<p>Every stroke is painted by hand by our master artisans in Jaipur, taking over 48 hours to complete a single saree. We use eco-friendly dyes on the finest pure silk organza.</p>",
+        "heading": "",
+        "intro": "",
         "padding_top": 48,
         "padding_bottom": 48
       }
