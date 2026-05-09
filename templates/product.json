@@ -257,8 +257,8 @@
         "feature_eco"
       ],
       "settings": {
-        "color_scheme": "scheme-4",
-        "background_color": "#ede8d2",
+        "color_scheme": "scheme-efef3cdf-bec0-4910-b9ba-0871608ea826",
+        "background_color": "#ffffff",
         "eyebrow": "",
         "heading": "BEHIND THE SEAM",
         "intro": "",
@@ -295,20 +295,13 @@
             "border_color": "#84173f",
             "show_drop_shadow": false,
             "transition_speed": 5,
-            "header_text": "Customers are saying",
+            "header_text": "Customer Stories",
             "show_average_rating": true
-          }
-        },
-        "judge_me_reviews_featured_carousel_8D3YQj": {
-          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "maxwidth": 1080
           }
         }
       },
       "block_order": [
-        "judge_me_reviews_testimonials_carousel_eXVqCm",
-        "judge_me_reviews_featured_carousel_8D3YQj"
+        "judge_me_reviews_testimonials_carousel_eXVqCm"
       ],
       "settings": {
         "include_margins": true
@@ -316,25 +309,6 @@
     },
     "177744032064581aa0": {
       "type": "apps",
-      "blocks": {
-        "judge_me_reviews_all_reviews_text_GYBpPT": {
-          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        },
-        "judge_me_reviews_review_widget_PKXMfY": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "review_data": "real_data",
-            "max_width": 700,
-            "show_shop_reviews": false,
-            "empty_state": "hide_widget"
-          }
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_all_reviews_text_GYBpPT",
-        "judge_me_reviews_review_widget_PKXMfY"
-      ],
       "settings": {
         "include_margins": true
       }
@@ -343,10 +317,10 @@
       "type": "related-products",
       "settings": {
         "heading": "You May Also Like",
-        "heading_size": "h2",
+        "heading_size": "h0",
         "products_to_show": 4,
         "columns_desktop": 4,
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-efef3cdf-bec0-4910-b9ba-0871608ea826",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
