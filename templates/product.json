@@ -103,7 +103,7 @@
         "trust_markers": {
           "type": "trust_markers",
           "settings": {
-            "background_color": "#f8f6f3",
+            "background_color": "#fafbff",
             "icon_color": "#5b1230",
             "title_color": "#333333",
             "subtext_color": "#6b6b6b",
@@ -259,8 +259,8 @@
       "settings": {
         "color_scheme": "scheme-4",
         "background_color": "#ede8d2",
-        "eyebrow": "BEHIND THE SEAMS",
-        "heading": "",
+        "eyebrow": "",
+        "heading": "BEHIND THE SEAM",
         "intro": "",
         "padding_top": 48,
         "padding_bottom": 48
