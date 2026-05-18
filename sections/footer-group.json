@@ -11,6 +11,25 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "footer_khanak_x3d7KE": {
+      "type": "footer-khanak",
+      "name": "Footer (Khanak)",
+      "settings": {
+        "background_color": "#fce6e3",
+        "accent_color": "#84173f",
+        "logo": "shopify://shop_images/KHANAK-2.png",
+        "tagline": "A celebration of timeless elegance and modern craftsmanship. Curating luxury that transcends seasons.",
+        "contact_email": "hello@khanak.com",
+        "contact_phone": "+91 00000 00000",
+        "menu_1_heading": "Client Services",
+        "menu_1": "footer",
+        "menu_2_heading": "The House",
+        "menu_2": "footer",
+        "newsletter_heading": "Newsletter",
+        "newsletter_quote": "\"Elegance is the only beauty that never fades.\"",
+        "copyright_text": "© 2024 RANG BY SHILPA. ALL RIGHTS RESERVED."
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -41,6 +60,7 @@
         "text_c9rF6w",
         "image_meBA4p"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-4",
         "newsletter_enable": false,
@@ -58,6 +78,7 @@
     }
   },
   "order": [
+    "footer_khanak_x3d7KE",
     "footer"
   ]
 }
