@@ -1,0 +1,213 @@
+.footer-khanak {
+  background: var(--fk-bg, #fce6e3);
+  color: rgb(var(--color-foreground));
+  padding: 5rem 0 0;
+  margin-top: 6rem;
+}
+
+.footer-khanak__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.6rem;
+  padding-bottom: 3.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .footer-khanak__inner {
+    grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+/* --- Brand column --- */
+.footer-khanak__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+}
+
+@media screen and (max-width: 749px) {
+  .footer-khanak__brand {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.footer-khanak__logo-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.footer-khanak__logo {
+  max-width: 18rem;
+  height: auto;
+  display: block;
+}
+
+.footer-khanak__logo-text {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--fk-accent);
+}
+
+.footer-khanak__tagline {
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.78);
+  margin: 0;
+  max-width: 32rem;
+}
+
+.footer-khanak__contacts {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-khanak__contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(132, 23, 63, 0.4);
+  color: var(--fk-accent);
+  background: transparent;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.footer-khanak__contact-icon:hover {
+  background: rgba(132, 23, 63, 0.08);
+  transform: scale(1.05);
+}
+
+/* --- Menu columns --- */
+.footer-khanak__menus {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .footer-khanak__menus {
+    grid-column: span 2;
+    gap: 3rem;
+  }
+}
+
+.footer-khanak__menu-heading {
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--fk-accent);
+  margin: 0 0 1.6rem;
+}
+
+.footer-khanak__menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-khanak__menu-link {
+  color: rgba(var(--color-foreground), 0.85);
+  text-decoration: none;
+  font-size: 1.3rem;
+  transition: color 0.2s ease;
+}
+
+.footer-khanak__menu-link:hover {
+  color: var(--fk-accent);
+}
+
+/* --- Newsletter --- */
+.footer-khanak__newsletter {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-khanak__quote {
+  font-size: 1.8rem;
+  line-height: 1.35;
+  font-style: normal;
+  color: rgba(var(--color-foreground), 0.85);
+  margin: 0 0 2rem;
+  max-width: 32rem;
+}
+
+.footer-khanak__form-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.3);
+  padding-bottom: 0.4rem;
+}
+
+.footer-khanak__input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  padding: 1rem 0;
+  font-size: 1.3rem;
+  color: rgb(var(--color-foreground));
+  outline: none;
+  box-shadow: none;
+  min-width: 0;
+}
+
+.footer-khanak__input::placeholder {
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.footer-khanak__submit {
+  background: transparent;
+  border: 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+  padding: 1rem 0 1rem 1.6rem;
+  cursor: pointer;
+}
+
+.footer-khanak__submit:hover {
+  color: var(--fk-accent);
+}
+
+.footer-khanak__form-msg {
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
+}
+
+.footer-khanak__form-msg--ok {
+  color: #2f6f3a;
+}
+
+.footer-khanak__form-msg--err {
+  color: #c0392b;
+}
+
+/* --- Copyright bar --- */
+.footer-khanak__copyright {
+  border-top: 1px solid rgba(132, 23, 63, 0.2);
+  padding: 1.6rem 0;
+  text-align: center;
+}
+
+.footer-khanak__copyright p {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  color: rgba(var(--color-foreground), 0.7);
+}

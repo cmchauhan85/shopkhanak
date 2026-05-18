@@ -2143,38 +2143,55 @@ a.product__text {
   border-color: #84173f !important;
 }
 
-/* --- Product Description: brand-color border around the description tab --- */
-.product__accordion details {
-  border: 1px solid #84173f;
-  border-radius: 0.4rem;
-  margin-bottom: 1rem;
+/* --- Payment guarantee: fully transparent, no card surface --- */
+.product__payment-guarantee {
+  background: transparent !important;
+  padding: 1rem 0;
 }
 
-.product__accordion summary {
-  padding: 1rem 1.2rem;
-}
-
-.product__accordion .accordion__content {
-  border-top: 1px solid rgba(132, 23, 63, 0.2);
-  padding: 1rem 1.2rem;
-}
-
-/* --- Payment highlight: keep ONE background. The outer .product__payment-guarantee
-       has a #f4f6fb background and the inner shield circle has a white background;
-       the visible "double background" is the section card wrapper applying its own
-       background on top. Flatten by removing the inner shield circle bg and keeping
-       only the outer card. --- */
 .product__payment-guarantee__shield {
   background: transparent;
 }
 
-/* --- CTA Layout: qty on same line as Add to Cart (desktop + mobile) --- */
+/* --- Accordion summary: align leaf icon vertically with heading text --- */
+.product__accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.product__accordion .summary__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.product__accordion .summary__title svg,
+.product__accordion .summary__title .icon {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.product__accordion .accordion__title {
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* --- CTA Layout: qty + Add to Cart on row 1, Buy Now full-width on row 2 ---
+       Strategy: flatten the product-form / form / .product-form__buttons containers
+       with `display: contents` so qty, ATC, and Buy Now all become direct flex
+       children of .product-form__quantity-cart-row and can wrap independently. */
 .product-form__quantity-cart-row {
   display: flex;
-  align-items: stretch;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1rem;
+  align-items: stretch;
   max-width: 44rem;
+  margin-bottom: 1rem;
 }
 
 .product-form__quantity-cart-row .product-form__quantity {
@@ -2186,19 +2203,7 @@ a.product__text {
   height: 100%;
 }
 
-.product-form__quantity-cart-row .product-form__buttons {
-  flex: 1 1 auto;
-  margin: 0;
-  max-width: none;
-  min-width: 0;
-}
-
-.product-form__quantity-cart-row .product-form__submit {
-  margin-bottom: 0;
-  width: 100%;
-}
-
-/* Hide the qty label inside the inline row to keep it compact */
+/* Hide the qty label so the stepper aligns vertically with the buttons */
 .product-form__quantity-cart-row .quantity__label {
   position: absolute;
   width: 1px;
@@ -2208,6 +2213,94 @@ a.product__text {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+/* Flatten the buy-buttons outer wrapper, product-form, form, and
+   .product-form__buttons so their visible children all participate in the
+   outer flex layout. The buy-buttons snippet wraps everything in
+   `<div {{ block.shopify_attributes }}>` — that div has no class, so we
+   target it as a direct child that isn't the qty stepper. */
+.product-form__quantity-cart-row > div:not(.product-form__quantity),
+.product-form__quantity-cart-row product-form,
+.product-form__quantity-cart-row product-form > form,
+.product-form__quantity-cart-row .product-form__buttons {
+  display: contents;
+}
+
+/* Pickup availability (rendered after the form, inside the same wrapper)
+   should occupy its own full-width row, not squeeze between qty and ATC. */
+.product-form__quantity-cart-row .product__pickup-availabilities {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.product-form__quantity-cart-row .product-form__submit {
+  flex: 1 1 0;
+  margin: 0;
+  min-width: 12rem;
+}
+
+.product-form__quantity-cart-row .shopify-payment-button {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+.product-form__quantity-cart-row .shopify-payment-button .shopify-payment-button__button {
+  width: 100%;
+  margin: 0;
+}
+
+.product-form__quantity-cart-row .shopify-payment-button__more-options {
+  display: none;
+}
+
+/* Make sure the error wrapper, hidden inputs, and gift-card form don't disturb
+   the row layout — they take a full line or stay invisible. */
+.product-form__quantity-cart-row .product-form__error-message-wrapper {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+/* --- Trust markers: flatten background, align to 3-column grid --- */
+.product__trust-markers {
+  background: transparent !important;
+  padding: 1.2rem 0;
+  border-radius: 0;
+}
+
+.product__trust-markers .trust-markers__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.product__trust-markers .trust-markers__item {
+  flex: initial;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product__trust-markers {
+    padding: 1rem 0;
+  }
+
+  .product__trust-markers .trust-markers__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+
+  .product__trust-markers .trust-markers__title {
+    font-size: 1.1rem;
+  }
+
+  .product__trust-markers .trust-markers__subtext {
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
 }
 
 /* --- Mobile: payment guarantee in one line --- */
@@ -2300,16 +2393,10 @@ a.product__text {
   }
 }
 
-/* --- Mobile: stop the floating CTA bar from being fixed; render inline.
-       Floating bar JS toggles .is-visible; we override both states on mobile so
-       the in-product CTA (qty + Add to Cart row) is the only one shown. --- */
+/* --- Mobile: sticky floating CTA bar at bottom (Buy Now uses brand color via
+       earlier rule). JS toggles .is-visible when the in-product ATC scrolls
+       off-screen. No bottom padding on the info wrapper per design. --- */
 @media screen and (max-width: 749px) {
-  .floating-buy-bar,
-  .floating-buy-bar.is-visible {
-    display: none !important;
-  }
-
-  /* Drop the floating-bar clearance — CTA is inline now */
   .product__info-wrapper {
     padding-bottom: 0;
   }

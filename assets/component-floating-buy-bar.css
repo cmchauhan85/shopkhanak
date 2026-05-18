@@ -31,9 +31,25 @@
 
 .floating-buy-bar__inner {
   display: grid;
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "qty atc"
+    "buy buy";
   gap: 0.8rem;
-  align-items: center;
+  align-items: stretch;
+}
+
+.floating-buy-bar__qty {
+  grid-area: qty;
+}
+
+.floating-buy-bar__add-to-cart {
+  grid-area: atc;
+}
+
+.floating-buy-bar__buy-now {
+  grid-area: buy;
+  width: 100%;
 }
 
 .floating-buy-bar__qty {
