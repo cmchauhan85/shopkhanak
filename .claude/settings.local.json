@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3)"
+      "Bash(python3)",
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:brainstorming:*)",
+      "Bash(curl -s \"http://127.0.0.1:9292/products/blue-embroidered-farshi-set\" -o /tmp/pdp.html)",
+      "Read(//tmp/**)",
+      "Bash(echo \"=== Checking key markup ===\"; grep -o \"product-form__quantity-cart-row\" /tmp/pdp.html | head -3; echo \"---\"; grep -o \"artisan-heading\\\\|artisan-subheading\" /tmp/pdp.html | head -5; echo \"---\"; grep -o \"behind-the-seams__heading\" /tmp/pdp.html | head -3; echo \"---\"; grep -o \"Customer Stories\\\\|You May Also Like\\\\|Artisan Hand Painting\\\\|KHANAK EXCLUSIVE\" /tmp/pdp.html | sort -u)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s \"http://127.0.0.1:9292/cdn/shop/t/$\\(grep -oE 'shopkhanak/[0-9]+' /tmp/pdp.html)"
     ]
   }
 }

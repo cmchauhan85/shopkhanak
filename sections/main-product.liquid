@@ -385,6 +385,14 @@
                   </details>
                 </div>
               {%- when 'quantity_selector' -%}
+                {%- if forloop.index < section.blocks.size -%}
+                  {%- assign next_block = section.blocks[forloop.index] -%}
+                {%- else -%}
+                  {%- assign next_block = nil -%}
+                {%- endif -%}
+                {%- if next_block and next_block.type == 'buy_buttons' -%}
+                  <div class="product-form__quantity-cart-row">
+                {%- endif -%}
                 <div
                   id="Quantity-Form-{{ section.id }}"
                   class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}"
@@ -683,6 +691,12 @@
                 {%- endfor -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id, size_chart_block: size_chart_block, section_id: section.id %}
               {%- when 'buy_buttons' -%}
+                {%- if forloop.index0 > 0 -%}
+                  {%- assign prev_index = forloop.index0 | minus: 1 -%}
+                  {%- assign prev_block = section.blocks[prev_index] -%}
+                {%- else -%}
+                  {%- assign prev_block = nil -%}
+                {%- endif -%}
                 {%- render 'buy-buttons',
                   block: block,
                   product: product,
@@ -690,6 +704,9 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+                {%- if prev_block and prev_block.type == 'quantity_selector' -%}
+                  </div>
+                {%- endif -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">

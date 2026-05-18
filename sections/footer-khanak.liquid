@@ -1,0 +1,240 @@
+{{ 'section-footer-khanak.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign bg_color = section.settings.background_color | default: '#fce6e3'
+  assign accent_color = section.settings.accent_color | default: '#84173f'
+-%}
+
+<footer
+  class="footer-khanak"
+  style="--fk-bg: {{ bg_color }}; --fk-accent: {{ accent_color }};"
+>
+  <div class="footer-khanak__inner page-width">
+    <div class="footer-khanak__brand">
+      {%- if section.settings.logo != blank -%}
+        <a href="{{ routes.root_url }}" class="footer-khanak__logo-link">
+          {{
+            section.settings.logo
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              widths: '200, 400, 600',
+              sizes: '(max-width: 749px) 50vw, 200px',
+              alt: shop.name,
+              class: 'footer-khanak__logo'
+          }}
+        </a>
+      {%- else -%}
+        <a href="{{ routes.root_url }}" class="footer-khanak__logo-link">
+          <span class="footer-khanak__logo-text">{{ shop.name }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="footer-khanak__tagline">{{ section.settings.tagline | escape }}</p>
+      {%- endif -%}
+
+      <ul class="footer-khanak__contacts list-unstyled" role="list">
+        {%- if section.settings.contact_email != blank -%}
+          <li>
+            <a
+              href="mailto:{{ section.settings.contact_email }}"
+              class="footer-khanak__contact-icon"
+              aria-label="Email us at {{ section.settings.contact_email }}"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.contact_phone != blank -%}
+          <li>
+            <a
+              href="tel:{{ section.settings.contact_phone | replace: ' ', '' }}"
+              class="footer-khanak__contact-icon"
+              aria-label="Call us at {{ section.settings.contact_phone }}"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>
+              </svg>
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <div class="footer-khanak__menus">
+      {%- if section.settings.menu_1 != blank -%}
+        <div class="footer-khanak__menu-block">
+          <h3 class="footer-khanak__menu-heading">{{ section.settings.menu_1_heading | escape }}</h3>
+          <ul class="footer-khanak__menu list-unstyled" role="list">
+            {%- for link in section.settings.menu_1.links -%}
+              <li>
+                <a href="{{ link.url }}" class="footer-khanak__menu-link">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.menu_2 != blank -%}
+        <div class="footer-khanak__menu-block">
+          <h3 class="footer-khanak__menu-heading">{{ section.settings.menu_2_heading | escape }}</h3>
+          <ul class="footer-khanak__menu list-unstyled" role="list">
+            {%- for link in section.settings.menu_2.links -%}
+              <li>
+                <a href="{{ link.url }}" class="footer-khanak__menu-link">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="footer-khanak__newsletter">
+      <h3 class="footer-khanak__menu-heading">{{ section.settings.newsletter_heading | escape | default: 'NEWSLETTER' }}</h3>
+      {%- if section.settings.newsletter_quote != blank -%}
+        <p class="footer-khanak__quote">{{ section.settings.newsletter_quote | escape }}</p>
+      {%- endif -%}
+      {% form 'customer', class: 'footer-khanak__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="footer-khanak__form-row">
+          <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">Email</label>
+          <input
+            type="email"
+            id="NewsletterEmail-{{ section.id }}"
+            name="contact[email]"
+            class="footer-khanak__input"
+            placeholder="Enter your email"
+            autocomplete="email"
+            required
+          >
+          <button type="submit" class="footer-khanak__submit">Subscribe</button>
+        </div>
+        {%- if form.posted_successfully? -%}
+          <p class="footer-khanak__form-msg footer-khanak__form-msg--ok">Thank you for subscribing.</p>
+        {%- elsif form.errors -%}
+          <p class="footer-khanak__form-msg footer-khanak__form-msg--err">{{ form.errors.translated_fields.email }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="footer-khanak__copyright">
+    <p>{{ section.settings.copyright_text | escape | default: '© RANG BY SHILPA. ALL RIGHTS RESERVED.' }}</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer (Khanak)",
+  "tag": "section",
+  "class": "footer-khanak-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#fce6e3"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / heading color",
+      "default": "#84173f"
+    },
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "A celebration of timeless elegance and modern craftsmanship. Curating luxury that transcends seasons."
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "hello@khanak.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact phone",
+      "default": "+91 00000 00000"
+    },
+    {
+      "type": "header",
+      "content": "Menu — Column 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Heading",
+      "default": "Client Services"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Menu — Column 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Heading",
+      "default": "The House"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_quote",
+      "label": "Quote",
+      "default": "\"Elegance is the only beauty that never fades.\""
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright",
+      "default": "© 2024 RANG BY SHILPA. ALL RIGHTS RESERVED."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer (Khanak)"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  }
+}
+{% endschema %}
