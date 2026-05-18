@@ -16,7 +16,7 @@
 
 <section
   class="behind-the-seams section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient"
-  style="--bts-bg: {{ section.settings.background_color | default: '#fdfaf6' }};"
+  style="--bts-bg: {{ section.settings.background_color | default: '#ffffff' }};"
 >
   <div class="behind-the-seams__inner page-width">
     <header class="behind-the-seams__header">
@@ -25,6 +25,12 @@
       {%- endif -%}
       {%- if section.settings.heading != blank -%}
         <h2 class="behind-the-seams__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.artisan_heading != blank -%}
+        <h3 class="behind-the-seams__artisan-heading">{{ section.settings.artisan_heading | escape }}</h3>
+      {%- endif -%}
+      {%- if section.settings.artisan_subheading != blank -%}
+        <p class="behind-the-seams__artisan-subheading">{{ section.settings.artisan_subheading | escape }}</p>
       {%- endif -%}
       {%- if section.settings.intro != blank -%}
         <div class="behind-the-seams__intro rte">{{ section.settings.intro }}</div>
@@ -80,7 +86,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#fdfaf6"
+      "default": "#ffffff"
     },
     {
       "type": "text",
@@ -92,7 +98,19 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Artisan Hand-Painting"
+      "default": "Behind the Seam"
+    },
+    {
+      "type": "text",
+      "id": "artisan_heading",
+      "label": "Artisan heading",
+      "default": "Artisan Hand Painting"
+    },
+    {
+      "type": "text",
+      "id": "artisan_subheading",
+      "label": "Artisan subheading",
+      "default": "Crafted stroke-by-stroke by master artisans in Jaipur"
     },
     {
       "type": "richtext",
