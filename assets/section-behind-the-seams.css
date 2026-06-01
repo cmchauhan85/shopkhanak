@@ -101,6 +101,9 @@
   border-radius: 0.4rem;
   aspect-ratio: 1 / 1;
   background: rgba(var(--color-foreground), 0.04);
+  width: 100%;
+  max-width: 26rem; /* fixed cap so the image never dominates */
+  margin-inline: auto; /* center within its column / on mobile */
 }
 
 .behind-the-seams__image {
