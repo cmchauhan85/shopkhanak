@@ -239,6 +239,7 @@
         "feature_organza": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/PHOTO-2026-04-13-14-02-21.jpg",
             "title": "Premium Fabric",
             "description": "<p>Lightweight and airy texture, creating an ethereal look perfect for summer weddings.</p>"
           }
@@ -246,13 +247,23 @@
         "feature_handpainted": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/PHOTO-2026-04-13-14-02-21.jpg",
             "title": "Customised Fits",
             "description": "<p>We offer customisation services.</p>"
+          }
+        },
+        "feature_iC7VQ9": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/PHOTO-2026-04-13-14-02-21.jpg",
+            "title": "100% Pure Organza",
+            "description": "<p>Lightweight and airy texture, creating an ethereal look perfect for summer weddings.</p>"
           }
         },
         "feature_eco": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/PHOTO-2026-04-13-14-02-21.jpg",
             "title": "Eco-Conscious",
             "description": "<p>We believe in slow fashion. Crafted responsibly with minimal waste and ethical wages.</p>"
           }
@@ -261,6 +272,7 @@
       "block_order": [
         "feature_organza",
         "feature_handpainted",
+        "feature_iC7VQ9",
         "feature_eco"
       ],
       "settings": {
