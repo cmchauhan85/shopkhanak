@@ -275,6 +275,7 @@
         "feature_iC7VQ9",
         "feature_eco"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-efef3cdf-bec0-4910-b9ba-0871608ea826",
         "background_color": "#ffffff",
