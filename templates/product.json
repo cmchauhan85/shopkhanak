@@ -325,7 +325,8 @@
             "arrows_color": "#000000",
             "transition_speed": 5,
             "header_text": "Customer Stories",
-            "show_average_rating": true
+            "show_average_rating": true,
+            "rating_display": "default"
           }
         }
       },
@@ -372,7 +373,8 @@
             "show_drop_shadow": false,
             "transition_speed": 5,
             "header_text": "Customer Stories",
-            "show_average_rating": true
+            "show_average_rating": true,
+            "rating_display": "default"
           }
         }
       },
