@@ -612,8 +612,8 @@
                       <span class="product__coupon-badge__title">First Purchase Gift</span>
                       <span class="product__coupon-badge__desc">Use code <strong>WELCOME10</strong> for 10% off</span>
                     </div> {% endcomment %}
-                    {% comment %} <button type="button" class="product__coupon-badge__copy link" data-copy-coupon="WELCOME10" data-copy-label="COPY CODE" aria-label="COPY CODE">COPY CODE</button> {% endcomment %}
-                  </div>
+                    {% comment %} <button type="button" class="product__coupon-badge__copy link" data-copy-coupon="WELCOME10" data-copy-label="COPY CODE" aria-label="COPY CODE">COPY CODE</button> 
+                  </div>{% endcomment %}
                 {%- endunless -%}
                 {%- unless has_stock_block -%}
                   {%- assign _variant = product.selected_or_first_available_variant -%}
