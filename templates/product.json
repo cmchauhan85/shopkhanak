@@ -299,16 +299,16 @@
       "blocks": {
         "judge_me_reviews_review_widget_Xc7YUU": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "disabled": true,
           "settings": {
-            "review_data": "sample_data",
+            "review_data": "real_data",
             "max_width": 1200,
             "show_shop_reviews": false,
-            "empty_state": "empty_widget"
+            "empty_state": "hide_widget"
           }
         },
         "judge_me_reviews_cards_carousel_LxnKU9": {
           "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {
             "show_sample_reviews": false,
             "reviews_selection": "current_product",
@@ -427,10 +427,10 @@
     "17792544757d669f07",
     "behind-the-seams",
     "177744032064581aa0",
+    "related-products",
     "1779253747ec42ec50",
     "1779253808adfc3afb",
     "17774418656e2b96bb",
-    "related-products",
     "1767771133bf0dc4ca"
   ]
 }
