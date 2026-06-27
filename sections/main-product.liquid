@@ -605,9 +605,6 @@
               {%- when 'popup' -%}
                 {%- unless has_coupon_block -%}
                   <div class="product__coupon-badge" style="--product-coupon-bg: #ffe4ec; --product-coupon-text: #b91c4a;">
-                    <span class="product__coupon-badge__icon" aria-hidden="true">
-                      <img src="{{ 'tag.svg' | asset_url }}" alt="" width="24" height="24" loading="lazy">
-                    </span>
                     </div>
                 {%- endunless -%}
                 {%- unless has_stock_block -%}
