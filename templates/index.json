@@ -51,7 +51,6 @@
       "type": "image-banner",
       "settings": {
         "image": "shopify://shop_images/IMG_5921.jpg",
-        "image_2": "shopify://shop_images/7BA5D3BC-F2F1-425A-A0D6-E9D4E97288C9.png",
         "image_overlay_opacity": 20,
         "image_height": "large",
         "desktop_content_position": "middle-center",
