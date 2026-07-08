@@ -50,10 +50,10 @@
     "image_banner_BdrExt": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Jul_8_2026_10_48_32_AM.png",
+        "image": "shopify://shop_images/ChatGPT_Image_Jul_8_2026_02_35_09_PM.png",
         "image_overlay_opacity": 0,
-        "image_height": "large",
-        "desktop_content_position": "middle-left",
+        "image_height": "adapt",
+        "desktop_content_position": "middle-center",
         "show_text_box": true,
         "desktop_content_alignment": "center",
         "color_scheme": "",
