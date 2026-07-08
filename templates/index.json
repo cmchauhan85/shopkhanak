@@ -50,10 +50,10 @@
     "image_banner_BdrExt": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify://shop_images/IMG_5921.jpg",
+        "image": "shopify://shop_images/B49B17E7-7CFD-4FBC-92B0-EF1BBCA93A99.png",
         "image_overlay_opacity": 20,
-        "image_height": "large",
-        "desktop_content_position": "middle-center",
+        "image_height": "adapt",
+        "desktop_content_position": "bottom-left",
         "show_text_box": true,
         "desktop_content_alignment": "center",
         "color_scheme": "",
